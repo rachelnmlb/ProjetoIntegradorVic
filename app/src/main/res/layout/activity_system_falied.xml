@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
+        android:id="@+id/btn_back"
         android:layout_width="@dimen/medium"
         android:layout_height="@dimen/medium"
         android:background="@drawable/ic_exit"
@@ -14,7 +15,57 @@
         app:layout_constraintRight_toRightOf="parent"
         />
 
+    <ImageView
+        android:id="@+id/image_conection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_conection"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+         />
+    <TextView
+        android:id="@+id/system_failied"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/system_falied"
+        app:layout_constraintTop_toBottomOf="@+id/image_conection"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
+    <TextView
+        android:id="@+id/txt_falied"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/system_falied_txt"
+        app:layout_constraintTop_toBottomOf="@+id/system_failied"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/txt_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/try_again_style"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.85"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_rectangle_3"
+        android:layout_marginTop="@dimen/small"
+        app:layout_constraintTop_toBottomOf="@+id/txt_try_again"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
