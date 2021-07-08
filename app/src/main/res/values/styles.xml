@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="poster_detail" parent="">
+        <item name="cornerSizeBottomLeft">40dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+    <style name="Percent_text">
+        <item name="android:textColor">@color/blue_percent_text</item>
+        <item name="android:textSize">@dimen/small_sp</item>
+        <item name="android:fontStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+    <style name="RatingText">
+        <item name="android:textColor">@color/grey_spc_text</item>
+        <item name="android:fontStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+    <style name="Detail_movie_title">
+        <item name="android:textColor">@color/blue_title</item>
+        <item name="android:textSize">@dimen/large_sp</item>
+        <item name="android:fontStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+    <style name="Info_movie_details_txt">
+        <item name="android:textColor">@color/grey_text</item>
+        <item name="android:textSize">@dimen/small_sp</item>
+        <item name="android:fontStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="synopsis_title">
+        <item name="android:textColor">@color/blue_title</item>
+        <item name="android:textSize">@dimen/medium_sp</item>
+        <item name="android:fontStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+    <style name="actor_txt">
+        <item name="android:textSize">@dimen/small_sp</item>
+        <item name="android:fontStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+</resources>

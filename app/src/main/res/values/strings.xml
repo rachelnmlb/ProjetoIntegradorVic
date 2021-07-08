@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">ProjetoIntegrador</string>
+    <string name="movie_genre">Ação</string>
+    <string name="movie_search">Pesquisar por um filme...</string>
+    <string name="movie_img_description">movie banner picture</string>
+    <string name="heart_icon_description">heart icon</string>
+    <string name="star_icon_description">star icon</string>
+    <string name="movie_rating">81%</string>
+    <string name="try_again">Tentar novamente</string>
+    <string name="failed">O sistema falhou</string>
+    <string name="try_again_msg">Por algum motivo, não foi possível processar com essa solicitação. Por favor, tente novamente.</string>
+    <string name="users_review_txt">Avaliação dos usuários</string>
+    <string name="favorite">Favorito</string>
+    <string name="banner_description">Imagem do filme</string>
+    <string name="synopsis">Sinopse</string>
+    <string name="cast">Elenco</string>
+    <string name="return_home">Retornar</string>
+    <string name="movie_rate">Avaliação dos usuários</string>
+</resources>
