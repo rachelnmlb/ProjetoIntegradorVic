@@ -5,25 +5,32 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.rachel.projetointegrador.R
+import com.rachel.projetointegrador.data.Genre
 
-class GenresAdapter(val context: Context, val dataSet: MutableList<String>) : RecyclerView.Adapter<GenresAdapter.TipoViewHolder>() {
+class GenresAdapter(val context: Context, val dataSet: MutableList<Genre>) : RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
 
-    class TipoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val genres = view.findViewById<Chip>(R.id.genres)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val genres: Chip = view.findViewById(R.id.genres)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TipoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val instanciaView =
             LayoutInflater.from(parent.context).inflate(R.layout.genres, parent, false)
-        return TipoViewHolder(instanciaView)
+        return ViewHolder(instanciaView)
     }
 
-    override fun onBindViewHolder(holder: TipoViewHolder, position: Int) {
-        holder.genres.text = dataSet[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val genre = dataSet[position]
+        holder.genres.text = genre.name
+
+        holder.genres.setOnClickListener {
+            Toast.makeText(context, "Gênero selecionado: ${genre.name}", Toast.LENGTH_SHORT).show()
+
+        }
     }
 
     override fun getItemCount(): Int = dataSet.size

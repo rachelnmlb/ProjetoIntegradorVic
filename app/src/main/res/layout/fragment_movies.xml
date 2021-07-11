@@ -7,10 +7,12 @@
     tools:context=".presentation.MainActivity">
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group"
+        android:id="@+id/genres_chip_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        app:singleSelection="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small"
-        app:layout_constraintTop_toBottomOf="@id/chip_group"
+        app:layout_constraintTop_toBottomOf="@id/genres_chip_group"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:listitem="@layout/movie"/>

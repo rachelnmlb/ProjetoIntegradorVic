@@ -6,16 +6,14 @@
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cvImage"
-        android:layout_width="260dp"
-        android:layout_height="390dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="240dp"
+        android:layout_height="320dp"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintRight_toRightOf="parent"
+        card_view:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/small"
         card_view:cardBackgroundColor="@android:color/transparent"
         card_view:cardCornerRadius="@dimen/xlarge"
-        card_view:cardMaxElevation="@dimen/xsmall"
-
         >
 
         <ImageButton
@@ -23,9 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/movie_img_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+             />
 
     </androidx.cardview.widget.CardView>
 
