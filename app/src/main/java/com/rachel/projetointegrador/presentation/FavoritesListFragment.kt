@@ -43,6 +43,7 @@ class FavoritesListFragment : Fragment(){
 
         setObserverGenresList(genresViewModel)
         setObserverMovieList(moviesViewModel)
+        genresViewModel.loadGenres()
     }
 
     private fun setObserverGenresList(genresViewModel: GenresViewModel) {

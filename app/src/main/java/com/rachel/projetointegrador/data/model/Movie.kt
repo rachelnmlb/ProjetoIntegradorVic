@@ -1,4 +1,4 @@
-package com.rachel.projetointegrador.data
+package com.rachel.projetointegrador.data.model
 
 import java.net.URI
 

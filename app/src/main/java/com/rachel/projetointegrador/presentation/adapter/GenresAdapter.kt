@@ -6,10 +6,9 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import com.google.android.material.chip.Chip
 import com.rachel.projetointegrador.R
-import com.rachel.projetointegrador.data.Genre
+import com.rachel.projetointegrador.data.model.Genre
 
 class GenresAdapter(val context: Context, val dataSet: MutableList<Genre>) : RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
 
@@ -29,7 +28,6 @@ class GenresAdapter(val context: Context, val dataSet: MutableList<Genre>) : Rec
 
         holder.genres.setOnClickListener {
             Toast.makeText(context, "Gênero selecionado: ${genre.name}", Toast.LENGTH_SHORT).show()
-
         }
     }
 

@@ -1,18 +1,15 @@
 package com.rachel.projetointegrador.presentation.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rachel.projetointegrador.R
-import com.rachel.projetointegrador.data.Movie
-import com.rachel.projetointegrador.presentation.DetailActivity
+import com.rachel.projetointegrador.data.model.Movie
 
 class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder> () {
 

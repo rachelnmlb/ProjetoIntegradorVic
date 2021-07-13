@@ -1,23 +1,27 @@
 package com.rachel.projetointegrador.presentation
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rachel.projetointegrador.data.Genre
+import com.rachel.projetointegrador.data.model.Genre
+import com.rachel.projetointegrador.data.repository.GenreRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class GenresViewModel : ViewModel() {
 
-    val genresList: MutableLiveData<MutableList<Genre>> by lazy {
-        MutableLiveData<MutableList<Genre>>(loadGenres())
-    }
+    val genresList = MutableLiveData<MutableList<Genre>>(mutableListOf())
+    private val genreRepository = GenreRepository()
 
-    private fun loadGenres(): MutableList<Genre> {
-        return mutableListOf(
-            Genre(1, "Ação"),
-            Genre(2, "Terror"),
-            Genre(3, "Romance"),
-            Genre(4, "Animação"),
-            Genre(5, "Comédia"),
-            Genre(6, "Infantil")
-        )
+    fun loadGenres() {
+        genreRepository.fetchGenresList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                it.message?.let { message -> Log.e("Error loading generes", message) }
+            }
+            .subscribe {
+                genresList.value = it.genres
+            }
     }
 }

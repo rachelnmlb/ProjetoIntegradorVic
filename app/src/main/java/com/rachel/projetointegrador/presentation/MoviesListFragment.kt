@@ -1,7 +1,7 @@
 package com.rachel.projetointegrador.presentation
 
-
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +10,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rachel.projetointegrador.R
-import com.rachel.projetointegrador.data.Movie
+import com.rachel.projetointegrador.data.repository.GenreRepository
 import com.rachel.projetointegrador.presentation.adapter.GenresAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class MoviesListFragment : Fragment() {
+
     private lateinit var rvGenresList : RecyclerView
     private lateinit var rvMoviesList : RecyclerView
     private lateinit var genresAdapter : GenresAdapter
+    private lateinit var movieAdapter : MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,17 +35,19 @@ class MoviesListFragment : Fragment() {
 
         val genresViewModel = ViewModelProvider(this).get(GenresViewModel::class.java)
         genresAdapter = GenresAdapter(context = view.context, dataSet = mutableListOf())
-
         rvGenresList = view.findViewById(R.id.genres_list)
         rvGenresList.adapter = genresAdapter
         rvGenresList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
-        setObserverGenresList(genresViewModel)
-
+        val moviesViewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+        movieAdapter = MovieAdapter(context = view.context, dataSet = mutableListOf())
         rvMoviesList = view.findViewById(R.id.movie_list)
-        rvMoviesList.adapter = MovieAdapter(view.context, fakeMovieList())
+        rvMoviesList.adapter = movieAdapter
         rvMoviesList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
+        setObserverGenresList(genresViewModel)
+        setObserverMovieList(moviesViewModel)
+        genresViewModel.loadGenres()
     }
 
     private fun setObserverGenresList(genresViewModel: GenresViewModel) {
@@ -54,12 +60,13 @@ class MoviesListFragment : Fragment() {
         )
     }
 
-    private fun fakeMovieList() : MutableList<Movie> {
-        return mutableListOf(
-            Movie("Ford vs Ferrarri", "https://upload.wikimedia.org/wikipedia/pt/f/fa/Ford_v_Ferrari_poster.png"),
-            Movie("Ford vs Ferrarri", "https://upload.wikimedia.org/wikipedia/pt/f/fa/Ford_v_Ferrari_poster.png"),
-            Movie("Ford vs Ferrarri", "https://upload.wikimedia.org/wikipedia/pt/f/fa/Ford_v_Ferrari_poster.png"),
-            Movie("Ford vs Ferrarri", "https://upload.wikimedia.org/wikipedia/pt/f/fa/Ford_v_Ferrari_poster.png")
+    private fun setObserverMovieList (moviesViewModel: MoviesViewModel){
+        moviesViewModel.moviesList.observe(viewLifecycleOwner,
+            { movies ->
+                movieAdapter.dataSet.clear()
+                movieAdapter.dataSet.addAll(movies)
+                movieAdapter.notifyDataSetChanged()
+            }
         )
     }
 }
