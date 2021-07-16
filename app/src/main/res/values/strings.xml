@@ -5,7 +5,6 @@
     <string name="movie_img_description">movie banner picture</string>
     <string name="heart_icon_description">heart icon</string>
     <string name="star_icon_description">star icon</string>
-    <string name="movie_rating">81%</string>
     <string name="try_again">Tentar novamente</string>
     <string name="failed">O sistema falhou</string>
     <string name="try_again_msg">Por algum motivo, não foi possível processar com essa solicitação. Por favor, tente novamente.</string>

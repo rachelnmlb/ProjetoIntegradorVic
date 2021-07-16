@@ -1,20 +1,30 @@
 package com.rachel.projetointegrador.presentation
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.rachel.projetointegrador.data.model.Genre
 import com.rachel.projetointegrador.data.model.Movie
+import com.rachel.projetointegrador.data.model.MoviesList
+import com.rachel.projetointegrador.data.repository.MovieRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class MoviesViewModel : ViewModel() {
-    val moviesList : MutableLiveData<MutableList<Movie>> by lazy {
-        MutableLiveData<MutableList<Movie>>(loadMovies())
-    }
 
-    private fun loadMovies() : MutableList<Movie>{
-        return mutableListOf(
-            Movie("Ford vs Ferrarri", "https://upload.wikimedia.org/wikipedia/pt/f/fa/Ford_v_Ferrari_poster.png"),
-            Movie("Ford vs Ferrarri", "https://upload.wikimedia.org/wikipedia/pt/f/fa/Ford_v_Ferrari_poster.png"),
-            Movie("Ford vs Ferrarri", "https://upload.wikimedia.org/wikipedia/pt/f/fa/Ford_v_Ferrari_poster.png"),
-            Movie("Ford vs Ferrarri", "https://upload.wikimedia.org/wikipedia/pt/f/fa/Ford_v_Ferrari_poster.png")
-        )
+    val movieRepository = MovieRepository()
+    val popularMovieList = MutableLiveData<MutableList<Movie>>(mutableListOf())
+
+    fun loadPopularMovies() {
+        movieRepository.fetchMoviesList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                it.message?.let { message -> Log.e("Error loading generes", message) }
+            }
+            .subscribe {
+                popularMovieList.value = it.results
+            }
     }
 }

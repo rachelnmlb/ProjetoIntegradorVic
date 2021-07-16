@@ -10,10 +10,11 @@
         android:id="@+id/genres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#223344"
         android:textSize="@dimen/small"
-        android:background="#E5E5E5"
+        android:fontFamily="@font/lato_regular"
         android:layout_marginHorizontal="@dimen/small"
+        style="@style/background_custom_chip"
+        app:checkedIconEnabled="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 

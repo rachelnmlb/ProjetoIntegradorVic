@@ -67,7 +67,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/xsmall"
-        android:text="@string/movie_rating"
         app:layout_constraintBottom_toBottomOf="@+id/star"
         app:layout_constraintStart_toEndOf="@+id/star"
         app:layout_constraintTop_toTopOf="@+id/star" />

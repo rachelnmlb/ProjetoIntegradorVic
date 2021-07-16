@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="16"
+        android:fontFamily="@font/lato_regular"
         android:hint="@string/movie_search"
         android:inputType="text"
         android:textSize="@dimen/small_sp"
@@ -32,11 +33,16 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/custom_tab_text_layout"
         android:backgroundTint="@color/backgroundColor"
-        android:layout_marginHorizontal="@dimen/large"
-        android:layout_marginVertical="@dimen/xxlarge"
+        android:fontFamily="@font/lato_regular"
+        app:tabIndicator="@drawable/ic_rectangle_3"
+        app:tabIndicatorColor="@color/primary_green"
+        app:tabIndicatorFullWidth="false"
         app:tabSelectedTextColor="#223334"
         app:tabTextColor="#223334"
+        android:layout_marginHorizontal="@dimen/large"
+        android:layout_marginVertical="@dimen/xxlarge"
         app:layout_constraintTop_toTopOf="@+id/search"/>
 
     <androidx.viewpager.widget.ViewPager

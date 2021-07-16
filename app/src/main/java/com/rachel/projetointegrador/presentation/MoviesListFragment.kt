@@ -48,6 +48,7 @@ class MoviesListFragment : Fragment() {
         setObserverGenresList(genresViewModel)
         setObserverMovieList(moviesViewModel)
         genresViewModel.loadGenres()
+        moviesViewModel.loadPopularMovies()
     }
 
     private fun setObserverGenresList(genresViewModel: GenresViewModel) {
@@ -61,7 +62,7 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun setObserverMovieList (moviesViewModel: MoviesViewModel){
-        moviesViewModel.moviesList.observe(viewLifecycleOwner,
+        moviesViewModel.popularMovieList.observe(viewLifecycleOwner,
             { movies ->
                 movieAdapter.dataSet.clear()
                 movieAdapter.dataSet.addAll(movies)

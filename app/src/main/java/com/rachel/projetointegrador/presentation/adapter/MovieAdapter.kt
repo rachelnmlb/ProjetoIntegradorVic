@@ -16,6 +16,7 @@ class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>) : Recy
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val poster = view.findViewById<ImageView>(R.id.btn_img_movie)
         val title = view.findViewById<TextView>(R.id.title_movie)
+        val voteAverage = view.findViewById<TextView>(R.id.rate_movie)
 
     }
 
@@ -26,13 +27,13 @@ class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>) : Recy
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        val rating = (dataSet[position].voteAverage * 10.0)
 
-
-
+        holder.voteAverage.text = "${"%.0f".format(rating)}%"
         holder.title.text = dataSet[position].title
 
         Glide.with(context)
-            .load(dataSet[position].posterURI)
+            .load("https://image.tmdb.org/t/p/w500${dataSet[position].posterPath}")
             .into(holder.poster)
     }
 

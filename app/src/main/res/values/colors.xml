@@ -19,4 +19,8 @@
     <color name="grey_spc_text">#9A9BB2</color>
     <color name="yellow_rating">#FCC419</color>
     <color name="grey_title_30_opacity">#B3223334</color>
+    <color name="backgroud_chip_cheked">#223324</color>
+    <color name="backgroud_chip">#E5E5E5</color>
+    <color name="text_chip">#80000000</color>
+    <color name="text_chip_cheked">#FAF9F9</color>
 </resources>

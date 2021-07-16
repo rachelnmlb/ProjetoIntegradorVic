@@ -7,22 +7,29 @@ import com.rachel.projetointegrador.presentation.FavoritesListFragment
 import com.rachel.projetointegrador.presentation.MoviesListFragment
 
 class FragmentAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+companion object{
+    const val MOVIES_LIST = 0
+    const val FAVORITES_MOVIES_LIST = 1
+    const val TITLE_MOVIES = 0
+    const val TITLE_FAVORITES_MOVIES=1
+}
+
     override fun getCount(): Int {
         return 2
     }
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
-            0 -> MoviesListFragment()
-            1 -> FavoritesListFragment()
+            MOVIES_LIST -> MoviesListFragment()
+            FAVORITES_MOVIES_LIST-> FavoritesListFragment()
             else -> MoviesListFragment()
         }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> "Todos os Filmes"
-            1 -> "Favoritos"
+            TITLE_MOVIES -> "Todos os Filmes"
+            TITLE_FAVORITES_MOVIES -> "Favoritos"
             else -> null
         }
     }
