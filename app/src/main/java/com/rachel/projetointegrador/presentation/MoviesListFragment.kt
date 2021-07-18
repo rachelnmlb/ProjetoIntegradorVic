@@ -1,7 +1,6 @@
 package com.rachel.projetointegrador.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rachel.projetointegrador.R
-import com.rachel.projetointegrador.data.repository.GenreRepository
 import com.rachel.projetointegrador.presentation.adapter.GenresAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 class MoviesListFragment : Fragment() {
 
@@ -45,6 +41,10 @@ class MoviesListFragment : Fragment() {
         rvMoviesList.adapter = movieAdapter
         rvMoviesList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
+        genresAdapter.onCheckedListener = { genreIds ->
+            moviesViewModel.loadMoviesByGenre(genreIds)
+        }
+
         setObserverGenresList(genresViewModel)
         setObserverMovieList(moviesViewModel)
         genresViewModel.loadGenres()
@@ -61,8 +61,8 @@ class MoviesListFragment : Fragment() {
         )
     }
 
-    private fun setObserverMovieList (moviesViewModel: MoviesViewModel){
-        moviesViewModel.popularMovieList.observe(viewLifecycleOwner,
+    private fun setObserverMovieList (moviesViewModel: MoviesViewModel) {
+        moviesViewModel.moviesList.observe(viewLifecycleOwner,
             { movies ->
                 movieAdapter.dataSet.clear()
                 movieAdapter.dataSet.addAll(movies)

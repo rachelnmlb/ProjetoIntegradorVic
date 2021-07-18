@@ -15,4 +15,7 @@ interface TMDBService {
     @GET("movie/popular")
     fun getPopularMoviesList(): Observable<MoviesList>
 
+    @GET("discover/movie")
+    fun getMovieByGenre(@Query(value = "with_genres", encoded = true) genreIds: String): Observable<MoviesList>
+
 }

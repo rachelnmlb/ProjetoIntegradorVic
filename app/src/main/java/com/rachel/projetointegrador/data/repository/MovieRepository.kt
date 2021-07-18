@@ -7,4 +7,8 @@ class MovieRepository {
     fun fetchMoviesList(): Observable<MoviesList>{
         return Network.getService().getPopularMoviesList()
     }
+
+    fun fetchMovieByGenre(genreIds: String): Observable<MoviesList>{
+        return Network.getService().getMovieByGenre(genreIds)
+    }
 }

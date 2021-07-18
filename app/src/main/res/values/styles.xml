@@ -68,5 +68,9 @@
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">@dimen/medium_sp</item>
+        <item name="backgroundTint">@color/backgroundColor</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:layout_marginHorizontal">@dimen/large</item>
+        <item name="android:layout_marginVertical">@dimen/xxlarge</item>
     </style>
 </resources>

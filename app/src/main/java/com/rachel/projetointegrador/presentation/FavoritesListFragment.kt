@@ -57,7 +57,7 @@ class FavoritesListFragment : Fragment(){
     }
 
     private fun setObserverMovieList (moviesViewModel: MoviesViewModel){
-        moviesViewModel.popularMovieList.observe(viewLifecycleOwner,
+        moviesViewModel.moviesList.observe(viewLifecycleOwner,
             { movies ->
                 movieAdapter.dataSet.clear()
                 movieAdapter.dataSet.addAll(movies)
