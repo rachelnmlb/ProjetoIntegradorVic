@@ -69,8 +69,16 @@
         <item name="textAllCaps">false</item>
         <item name="android:textSize">@dimen/medium_sp</item>
         <item name="backgroundTint">@color/backgroundColor</item>
-        <item name="android:fontFamily">@font/lato_regular</item>
         <item name="android:layout_marginHorizontal">@dimen/large</item>
         <item name="android:layout_marginVertical">@dimen/xxlarge</item>
+    </style>
+    <style name="genre_detail">
+        <item name="android:layout_marginHorizontal">@dimen/small</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+        <item name="android:paddingHorizontal">@dimen/small</item>
+        <item name="android:paddingVertical">@dimen/xxsmall</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:textColor">@color/black_50_opacity</item>
     </style>
 </resources>

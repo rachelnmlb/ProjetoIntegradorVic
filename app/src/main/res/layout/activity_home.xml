@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/custom_tab_text_layout"
+        android:fontFamily="@font/lato_regular"
         app:tabIndicator="@drawable/ic_rectangle_3"
         app:tabIndicatorColor="@color/primary_green"
         app:tabIndicatorFullWidth="false"

@@ -1,5 +1,6 @@
 package com.rachel.projetointegrador.data.repository
 
+import com.google.gson.GsonBuilder
 import com.rachel.projetointegrador.data.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

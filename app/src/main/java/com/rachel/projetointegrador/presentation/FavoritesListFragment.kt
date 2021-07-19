@@ -30,12 +30,13 @@ class FavoritesListFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val genresViewModel = ViewModelProvider(this).get(GenresViewModel::class.java)
+        val moviesViewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+
         genresAdapter = GenresAdapter(context = view.context, dataSet = mutableListOf())
         rvGenresList = view.findViewById(R.id.genres_list)
         rvGenresList.adapter = genresAdapter
         rvGenresList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
-        val moviesViewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
         movieAdapter = MovieAdapter(context = view.context, dataSet = mutableListOf())
         rvMoviesList = view.findViewById(R.id.movie_list)
         rvMoviesList.adapter = movieAdapter
