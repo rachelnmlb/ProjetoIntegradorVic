@@ -31,7 +31,6 @@
         android:id="@+id/movie_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small"
         app:layout_constraintTop_toBottomOf="@id/genres_chip_group"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

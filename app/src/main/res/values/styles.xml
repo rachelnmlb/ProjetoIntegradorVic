@@ -6,36 +6,6 @@
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeTopRight">0dp</item>
     </style>
-    <style name="Percent_text">
-        <item name="android:textColor">@color/blue_percent_text</item>
-        <item name="android:textSize">@dimen/small_sp</item>
-        <item name="android:fontStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
-    <style name="RatingText">
-        <item name="android:textColor">@color/grey_spc_text</item>
-        <item name="android:fontStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
-    <style name="Detail_movie_title">
-        <item name="android:textColor">@color/blue_title</item>
-        <item name="android:textSize">@dimen/large_sp</item>
-        <item name="android:fontStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
-    <style name="Info_movie_details_txt">
-        <item name="android:textColor">@color/grey_text</item>
-        <item name="android:textSize">@dimen/small_sp</item>
-        <item name="android:fontStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textAlignment">center</item>
-    </style>
-    <style name="synopsis_title">
-        <item name="android:textColor">@color/blue_title</item>
-        <item name="android:textSize">@dimen/medium_sp</item>
-        <item name="android:fontStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
     <style name="actor_txt">
         <item name="android:textSize">@dimen/small_sp</item>
         <item name="android:fontStyle">normal</item>
@@ -80,5 +50,13 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/small</item>
         <item name="android:textColor">@color/black_50_opacity</item>
+    </style>
+    <style name="rounded_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">48dp</item>
+        <item name="cornerSizeTopLeft">48dp</item>
+    </style>
+    <style name="card_rating" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/rounded_corners</item>
     </style>
 </resources>

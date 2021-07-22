@@ -1,18 +1,21 @@
 package com.rachel.projetointegrador.presentation.adapter
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.rachel.projetointegrador.presentation.FavoritesListFragment
 import com.rachel.projetointegrador.presentation.MoviesListFragment
+import com.rachel.projetointegrador.presentation.MoviesViewModel
 
 class FragmentAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-companion object{
-    const val MOVIES_LIST = 0
-    const val FAVORITES_MOVIES_LIST = 1
-    const val TITLE_MOVIES = 0
-    const val TITLE_FAVORITES_MOVIES=1
-}
+
+    companion object{
+        const val MOVIES_LIST = 0
+        const val FAVORITES_MOVIES_LIST = 1
+        const val TITLE_MOVIES = 0
+        const val TITLE_FAVORITES_MOVIES=1
+    }
 
     override fun getCount(): Int {
         return 2

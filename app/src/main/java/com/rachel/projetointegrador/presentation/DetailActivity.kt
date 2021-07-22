@@ -1,5 +1,6 @@
 package com.rachel.projetointegrador.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +27,9 @@ class DetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.btnReturn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)}
         movieId = intent.extras?.get(MovieAdapter.MOVIE_ID) as Int
 
         genresDetailAdapter = GenresDetailAdapter(this)
@@ -46,6 +50,7 @@ class DetailActivity: AppCompatActivity() {
 
         detailViewModel.loadMovieDetail(movieId)
         castViewModel.loadCastList(movieId)
+
     }
 
     private fun setObserverMovieDetails (movieDetailViewModel: MovieDetailViewModel) {
@@ -53,7 +58,11 @@ class DetailActivity: AppCompatActivity() {
             { movieDetail ->
                 binding.txtMovieTitle.text = movieDetail.title
                 binding.txtSinopsys.text = movieDetail.overview
-                
+                val rating = movieDetail.rating * 10.0
+
+                binding.txtUsersRating.text = "${"%.0f".format(rating)}%"
+
+
 
                 Glide.with(this)
                     .load("https://image.tmdb.org/t/p/w500${movieDetail.backdropPath}")

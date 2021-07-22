@@ -1,26 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/small"
+    tools:ignore="RtlSymmetry">
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cvImage"
         android:layout_width="260dp"
-        android:layout_height="320dp"
-        android:layout_marginTop="@dimen/small"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small"
+        android:layout_marginTop="@dimen/medium"
+        android:layout_marginEnd="@dimen/medium"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         card_view:cardBackgroundColor="@android:color/transparent"
         card_view:cardCornerRadius="@dimen/xlarge"
-        card_view:layout_constraintLeft_toLeftOf="parent"
-        card_view:layout_constraintRight_toRightOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent">
+        card_view:cardElevation="@dimen/xsmall">
 
-        <ImageButton
-            android:id="@+id/btn_img_movie"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/movie_img_description" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/btn_img_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:visibility="visible"
+                android:contentDescription="@string/movie_img_description"
+                tools:src="@drawable/ford_v_ferrari_poster" />
+
+        </FrameLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -28,9 +42,10 @@
             android:id="@+id/title_movie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxWidth="@dimen/medium"
+            android:textSize="18dp"
             android:layout_marginHorizontal="96dp"
             android:layout_marginTop="@dimen/small"
+            android:visibility="visible"
             android:text="Ford vs Feaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaarrari"
             android:textAlignment="center"
             android:fontFamily="@font/lato_regular"
@@ -50,6 +65,7 @@
             android:text=""
             android:textOff=""
             android:textOn=""
+            android:visibility="visible"
             android:layout_marginTop="@dimen/xxsmall"
             android:layout_marginLeft="@dimen/xxsmall"
             app:layout_constraintTop_toTopOf="@id/title_movie"
@@ -60,6 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/xsmall"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/star"
         app:layout_constraintStart_toEndOf="@+id/star"
         app:layout_constraintTop_toTopOf="@+id/star" />
@@ -70,9 +87,46 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small"
         android:src="@drawable/ic_star"
+        android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_movie" />
+  <!-- <ImageView
+       android:id="@+id/not_exist_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_movie_do_not_exist"
+       android:visibility="visible"
+    app:layout_constraintTop_toTopOf="@id/cvImage"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_not_exist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/movie_do_not_exist"
+        android:textColor="@color/black"
+        android:textSize="@dimen/medium"
+        android:fontFamily="@font/lato_regular"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/medium"
+        app:layout_constraintTop_toBottomOf="@+id/not_exist_image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small"
+        android:text="@string/not_found"
+        android:textColor="@color/black_50_opacity"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/small"
+        app:layout_constraintTop_toBottomOf="@+id/txt_not_exist"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/> -->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

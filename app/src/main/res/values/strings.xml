@@ -17,5 +17,6 @@
     <string name="movie_rate">Avaliação dos usuários</string>
     <string name="search_mode">Modo Pesquisa</string>
     <string name="movie_do_not_exist">Esse filme não existe</string>
+    <string name="back">Voltar ao início</string>
     <string name="not_found">Não conseguimos encontrar o filme que voce procura. Por favor, refaça sua busca.</string>
 </resources>
