@@ -4,17 +4,17 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.rachel.projetointegrador.presentation.FavoritesListFragment
+import com.rachel.projetointegrador.data.Constants
 import com.rachel.projetointegrador.presentation.MoviesListFragment
-import com.rachel.projetointegrador.presentation.MoviesViewModel
 
 class FragmentAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     companion object{
-        const val MOVIES_LIST = 0
+        const val POPULAR_MOVIES_LIST = 0
         const val FAVORITES_MOVIES_LIST = 1
         const val TITLE_MOVIES = 0
-        const val TITLE_FAVORITES_MOVIES=1
+        const val TITLE_FAVORITES_MOVIES = 1
+        const val MOVIE_LIST_TYPE = "MOVIE_LIST_TYPE"
     }
 
     override fun getCount(): Int {
@@ -22,11 +22,14 @@ class FragmentAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     }
 
     override fun getItem(position: Int): Fragment {
-        return when(position) {
-            MOVIES_LIST -> MoviesListFragment()
-            FAVORITES_MOVIES_LIST-> FavoritesListFragment()
-            else -> MoviesListFragment()
-        }
+        val fragment = MoviesListFragment()
+
+        var bundle = Bundle()
+        bundle.putInt(MOVIE_LIST_TYPE, position)
+
+        fragment.arguments = bundle
+
+        return fragment
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

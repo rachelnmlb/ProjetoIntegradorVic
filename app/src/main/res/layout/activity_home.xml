@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@+id/image_search" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout"
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/custom_tab_text_layout"
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:layout_constraintTop_toBottomOf="@+id/tablayout"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         tools:layout_editor_absoluteX="0dp" />
     <ImageView
         android:id="@+id/image_retangle"

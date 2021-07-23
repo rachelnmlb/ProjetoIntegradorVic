@@ -150,27 +150,31 @@
 
     <TextView
         android:id="@+id/txt_users_rating"
-        android:layout_width="70dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/xxsmall"
-        android:layout_marginBottom="@dimen/xxlarge"
+        android:layout_marginLeft="@dimen/small"
+        android:layout_marginBottom="@dimen/small"
         android:elevation="@dimen/medium"
         android:textColor="@color/grey_text"
         android:fontFamily="@font/lato_regular"
         android:text="@string/users_review_txt"
-        app:layout_constraintTop_toBottomOf="@id/txt_number_percent"
-        app:layout_constraintLeft_toLeftOf="@id/txt_number_percent"
+        app:layout_constraintBottom_toBottomOf="@id/card_rating"
+        app:layout_constraintLeft_toRightOf="@id/img_label_star"
          />
 
-    <TextView
+   <TextView
         android:id="@+id/txt_number_percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/xxsmall"
+        android:layout_marginBottom="@dimen/xsmall"
+       android:textStyle="bold"
         android:layout_marginLeft="@dimen/small"
         android:textColor="@color/black"
+       android:textSize="@dimen/small"
         android:elevation="@dimen/large"
-        app:layout_constraintTop_toTopOf="@id/card_rating"
+       android:text="87"
+        app:layout_constraintBottom_toTopOf="@id/txt_users_rating"
         app:layout_constraintLeft_toRightOf="@id/img_label_star"
          />
 

@@ -60,7 +60,7 @@ class DetailActivity: AppCompatActivity() {
                 binding.txtSinopsys.text = movieDetail.overview
                 val rating = movieDetail.rating * 10.0
 
-                binding.txtUsersRating.text = "${"%.0f".format(rating)}%"
+                binding.txtNumberPercent.text = "${"%.0f".format(rating)}%"
 
 
 

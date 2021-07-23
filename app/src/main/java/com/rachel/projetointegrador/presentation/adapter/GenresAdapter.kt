@@ -11,7 +11,7 @@ import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.data.model.Genre
 
 class GenresAdapter(val context: Context, val dataSet: MutableList<Genre>) : RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
-    var onCheckedListener : (genreIds: String) -> Unit = {}
+    var onCheckedListener : (genreIds: List<Int>) -> Unit = {}
     val idGenresList: MutableList<Int> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -34,7 +34,7 @@ class GenresAdapter(val context: Context, val dataSet: MutableList<Genre>) : Rec
             } else {
                 idGenresList.remove(genre.id)
             }
-            onCheckedListener(idGenresList.joinToString(","))
+            onCheckedListener(idGenresList)
         }
     }
 
