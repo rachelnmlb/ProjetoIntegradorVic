@@ -62,8 +62,6 @@ class DetailActivity: AppCompatActivity() {
 
                 binding.txtNumberPercent.text = "${"%.0f".format(rating)}%"
 
-
-
                 Glide.with(this)
                     .load("https://image.tmdb.org/t/p/w500${movieDetail.backdropPath}")
                     .into(binding.imageDetailPoster)

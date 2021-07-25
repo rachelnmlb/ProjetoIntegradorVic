@@ -17,18 +17,19 @@ import com.rachel.projetointegrador.presentation.DetailActivity
 
 class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>): RecyclerView.Adapter<MovieAdapter.ViewHolder> () {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val poster = view.findViewById<ImageView>(R.id.btn_img_movie)
-        val title = view.findViewById<TextView>(R.id.title_movie)
-        val voteAverage = view.findViewById<TextView>(R.id.rate_movie)
-        val favorite = view.findViewById<ToggleButton>(R.id.favorite)
+    var onFavoriteCheckedChange : (movie: Movie, isChecked: Boolean) -> Unit = { _, _ ->}
 
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val poster: ImageView = view.findViewById(R.id.btn_img_movie)
+        val title: TextView = view.findViewById(R.id.title_movie)
+        val voteAverage: TextView = view.findViewById(R.id.rate_movie)
+        val favorite: ToggleButton = view.findViewById(R.id.favorite)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val instanciaView =
+        val viewInstance =
             LayoutInflater.from(parent.context).inflate(R.layout.movie, parent, false)
-        return ViewHolder(instanciaView)
+        return ViewHolder(viewInstance)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -50,9 +51,13 @@ class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>): Recyc
             context.startActivity(intent)
         }
 
+        // TODO Ver uma solução melhor
+        holder.favorite.setOnCheckedChangeListener(null)
+
         holder.favorite.isChecked = FavoriteMovieRepository.isFavorite(movie.id)
 
-        holder.favorite.setOnCheckedChangeListener{ button, isChecked ->
+        holder.favorite.setOnCheckedChangeListener { _, isChecked ->
+            onFavoriteCheckedChange(movie, isChecked)
         }
     }
 

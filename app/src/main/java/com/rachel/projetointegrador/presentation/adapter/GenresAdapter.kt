@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import com.google.android.material.chip.Chip
 import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.data.model.Genre
 
 class GenresAdapter(val context: Context, val dataSet: MutableList<Genre>) : RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
-    var onCheckedListener : (genreIds: List<Int>) -> Unit = {}
-    val idGenresList: MutableList<Int> = mutableListOf()
+    var onGenreCheckedChange : (genreIds: List<Int>) -> Unit = {}
+    private val idGenresList: MutableList<Int> = mutableListOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val genres: Chip = view.findViewById(R.id.genres)
@@ -28,16 +27,15 @@ class GenresAdapter(val context: Context, val dataSet: MutableList<Genre>) : Rec
         val genre = dataSet[position]
         holder.genres.text = genre.name
 
-        holder.genres.setOnCheckedChangeListener { button, isChecked ->
+        holder.genres.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 idGenresList.add(genre.id)
             } else {
                 idGenresList.remove(genre.id)
             }
-            onCheckedListener(idGenresList)
+            onGenreCheckedChange(idGenresList)
         }
     }
 
     override fun getItemCount(): Int = dataSet.size
-
 }

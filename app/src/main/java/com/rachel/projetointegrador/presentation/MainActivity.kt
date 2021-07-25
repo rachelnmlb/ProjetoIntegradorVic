@@ -2,6 +2,7 @@ package com.rachel.projetointegrador.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.rachel.projetointegrador.R
@@ -18,5 +19,6 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewpager)
 
+        ViewModelProvider(this).get(MoviesViewModel::class.java)
     }
 }

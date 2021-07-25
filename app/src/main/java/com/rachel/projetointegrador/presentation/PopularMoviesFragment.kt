@@ -9,16 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rachel.projetointegrador.R
-import com.rachel.projetointegrador.presentation.adapter.FragmentAdapter
 import com.rachel.projetointegrador.presentation.adapter.GenresAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
 
-class MoviesListFragment : Fragment() {
+class PopularMoviesFragment : Fragment() {
 
     private lateinit var rvGenresList : RecyclerView
     private lateinit var rvMoviesList : RecyclerView
     private lateinit var genresAdapter : GenresAdapter
     private lateinit var movieAdapter : MovieAdapter
+    private lateinit var moviesViewModel : MoviesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,61 +30,53 @@ class MoviesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val movieListType = arguments?.get(FragmentAdapter.MOVIE_LIST_TYPE)
-        val moviesViewModel: MoviesViewModel = getMoviesViewModel(movieListType)
-        val genresViewModel = ViewModelProvider(this).get(GenresViewModel::class.java)
+        moviesViewModel = ViewModelProvider(requireActivity()).get(MoviesViewModel::class.java)
 
-        movieAdapter = MovieAdapter(context = view.context, dataSet = mutableListOf())
+        movieAdapter = MovieAdapter(view.context, mutableListOf())
         rvMoviesList = view.findViewById(R.id.movie_list)
         rvMoviesList.adapter = movieAdapter
         rvMoviesList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
-        genresAdapter = GenresAdapter(context = view.context, dataSet = mutableListOf())
+        genresAdapter = GenresAdapter(view.context, mutableListOf())
         rvGenresList = view.findViewById(R.id.genres_list)
         rvGenresList.adapter = genresAdapter
         rvGenresList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
-        genresAdapter.onCheckedListener = { genreIds ->
+        genresAdapter.onGenreCheckedChange = { genreIds ->
             if (genreIds.isEmpty())
-                moviesViewModel.loadMovies()
+                moviesViewModel.loadPopularMovies()
             else
                 moviesViewModel.loadMoviesByGenre(genreIds)
         }
 
-        setObserverGenresList(genresViewModel)
-        setObserverMovieList(moviesViewModel)
-        genresViewModel.loadGenres()
-        moviesViewModel.loadMovies()
+        movieAdapter.onFavoriteCheckedChange = { movie, isChecked ->
+            if (isChecked)
+                moviesViewModel.addFavorite(movie)
+            else
+                moviesViewModel.removeFavorite(movie.id)
+        }
+
+        setObservers()
+        moviesViewModel.loadPopularMovies()
+        moviesViewModel.loadGenres()
     }
 
-    private fun setObserverGenresList(genresViewModel: GenresViewModel) {
-        genresViewModel.genresList.observe(viewLifecycleOwner,
-            { genres ->
-                genresAdapter.dataSet.clear()
-                genresAdapter.dataSet.addAll(genres)
-                genresAdapter.notifyDataSetChanged()
-            }
-        )
-    }
+    private fun setObservers () {
 
-    private fun setObserverMovieList (moviesViewModel: MoviesViewModel) {
-        moviesViewModel.moviesList.observe(viewLifecycleOwner,
+        moviesViewModel.popularMovies.observe(viewLifecycleOwner,
             { movies ->
                 movieAdapter.dataSet.clear()
                 movieAdapter.dataSet.addAll(movies)
                 movieAdapter.notifyDataSetChanged()
             }
         )
-    }
 
-    private fun getMoviesViewModel(movieListType: Any?): MoviesViewModel {
-        return when (movieListType) {
-            FragmentAdapter.POPULAR_MOVIES_LIST ->
-                ViewModelProvider(this).get(PopularMoviesViewModel::class.java)
-            FragmentAdapter.FAVORITES_MOVIES_LIST ->
-                ViewModelProvider(this).get(FavoriteMoviesViewModel::class.java)
-            else ->
-                ViewModelProvider(this).get(PopularMoviesViewModel::class.java)
-        }
+        moviesViewModel.genresList.observe(viewLifecycleOwner,
+            { genres ->
+                genresAdapter.dataSet.clear()
+                genresAdapter.dataSet.addAll(genres)
+                genresAdapter.notifyDataSetChanged()
+            }
+        )
     }
 }
