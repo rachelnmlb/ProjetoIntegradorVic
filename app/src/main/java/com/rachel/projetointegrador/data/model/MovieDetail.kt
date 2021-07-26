@@ -6,6 +6,7 @@ import com.google.gson.internal.bind.DateTypeAdapter
 import java.util.*
 
 data class MovieDetail(
+    @SerializedName("id") val id : Int,
     @SerializedName("backdrop_path") val backdropPath: String? = null,
     @SerializedName("title") val title: String? = null,
     @SerializedName("vote_average") val rating: Float,
@@ -13,5 +14,5 @@ data class MovieDetail(
     @SerializedName("runtime") val duration: Int? = null,
     @SerializedName("genres") val genres: List<Genre>,
     @SerializedName("overview") val overview: String? = null,
-
+    var isFavorite: Boolean = false
     )

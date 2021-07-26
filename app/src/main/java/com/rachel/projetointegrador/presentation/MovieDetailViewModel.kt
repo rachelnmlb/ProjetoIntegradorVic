@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rachel.projetointegrador.data.model.MovieDetail
+import com.rachel.projetointegrador.data.repository.FavoriteMovieRepository
 import com.rachel.projetointegrador.data.repository.MovieRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -11,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 
 class MovieDetailViewModel: ViewModel() {
     private val detailRepository = MovieRepository()
+    private val favoriteMoviesRepository = FavoriteMovieRepository()
     val movieDetail = MutableLiveData<MovieDetail>()
 
     fun loadMovieDetail(movieId: Int): Disposable{
@@ -21,6 +23,7 @@ class MovieDetailViewModel: ViewModel() {
                 it.message?.let { message -> Log.e("Error loading movies", message) }
             }
             .subscribe {
+                it.isFavorite = favoriteMoviesRepository.isFavorite(it.id)
                 movieDetail.value = it
             }
     }

@@ -58,8 +58,9 @@ class DetailActivity: AppCompatActivity() {
             { movieDetail ->
                 binding.txtMovieTitle.text = movieDetail.title
                 binding.txtSinopsys.text = movieDetail.overview
-                val rating = movieDetail.rating * 10.0
+                binding.favoriteDetail.isChecked = movieDetail.isFavorite
 
+                val rating = movieDetail.rating * 10.0
                 binding.txtNumberPercent.text = "${"%.0f".format(rating)}%"
 
                 Glide.with(this)
