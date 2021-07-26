@@ -9,4 +9,5 @@ data class Movie(
     @SerializedName("poster_path") val posterPath : String? = null,
     @SerializedName("genre_ids") val genreIds: List<Int>,
     @SerializedName("vote_average") val voteAverage : Float,
+    var isFavorite: Boolean = false
     )

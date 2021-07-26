@@ -20,6 +20,7 @@ class MoviesViewModel : ViewModel() {
 
     private val genreRepository = GenreRepository()
     private val movieRepository = MovieRepository()
+    private val favoriteMovieRepository = FavoriteMovieRepository()
 
     fun loadPopularMovies(): Disposable {
         return movieRepository.fetchMoviesList()
@@ -30,6 +31,7 @@ class MoviesViewModel : ViewModel() {
             }
             .subscribe {
                 popularMovies.value = it.results
+                checkFavorites()
             }
     }
 
@@ -42,6 +44,7 @@ class MoviesViewModel : ViewModel() {
             }
             .subscribe {
                 popularMovies.value = it.results
+                checkFavorites()
             }
     }
 
@@ -58,12 +61,12 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun loadFavoriteMovies() {
-        val favorites = FavoriteMovieRepository.listFavorites()
+        val favorites = favoriteMovieRepository.listFavorites()
         favoriteMovies.value = favorites
     }
 
     fun loadFavoritesByGenre(genreIds: List<Int>) {
-        val favorites = FavoriteMovieRepository.listFavorites()
+        val favorites = favoriteMovieRepository.listFavorites()
             .filter { movie -> movie.genreIds.containsAll(genreIds) }
             .toMutableList()
 
@@ -71,12 +74,22 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun addFavorite(movie: Movie) {
-        FavoriteMovieRepository.addFavorite(movie)
-        favoriteMovies.value = FavoriteMovieRepository.listFavorites()
+        favoriteMovieRepository.addFavorite(movie)
+        favoriteMovies.value = favoriteMovieRepository.listFavorites()
+        checkFavorites()
     }
 
     fun removeFavorite(movieId: Int) {
-        FavoriteMovieRepository.removeFavorite(movieId)
-        favoriteMovies.value = FavoriteMovieRepository.listFavorites()
+        favoriteMovieRepository.removeFavorite(movieId)
+        favoriteMovies.value = favoriteMovieRepository.listFavorites()
+        checkFavorites()
+    }
+
+    private fun checkFavorites() {
+        val favorites = popularMovies.value?.map {
+            it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
+            it
+        }
+        popularMovies.value = favorites?.toMutableList()
     }
 }

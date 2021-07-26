@@ -2,8 +2,7 @@ package com.rachel.projetointegrador.data.repository
 
 import com.rachel.projetointegrador.data.model.Movie
 
-object FavoriteMovieRepository {
-    private val favorites : MutableMap<Int, Movie> = mutableMapOf()
+class FavoriteMovieRepository {
 
     fun addFavorite(movie: Movie) {
         favorites.putIfAbsent(movie.id, movie)
@@ -19,5 +18,9 @@ object FavoriteMovieRepository {
 
     fun listFavorites(): MutableList<Movie> {
         return ArrayList(favorites.values)
+    }
+
+    private companion object {
+        val favorites : MutableMap<Int, Movie> = mutableMapOf()
     }
 }

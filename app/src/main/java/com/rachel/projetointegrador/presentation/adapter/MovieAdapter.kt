@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.data.model.Movie
-import com.rachel.projetointegrador.data.repository.FavoriteMovieRepository
 import com.rachel.projetointegrador.presentation.DetailActivity
 
 class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>): RecyclerView.Adapter<MovieAdapter.ViewHolder> () {
@@ -54,7 +53,7 @@ class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>): Recyc
         // TODO Ver uma solução melhor
         holder.favorite.setOnCheckedChangeListener(null)
 
-        holder.favorite.isChecked = FavoriteMovieRepository.isFavorite(movie.id)
+        holder.favorite.isChecked = movie.isFavorite
 
         holder.favorite.setOnCheckedChangeListener { _, isChecked ->
             onFavoriteCheckedChange(movie, isChecked)
