@@ -53,13 +53,12 @@ class PopularMoviesFragment : Fragment() {
             if (isChecked)
                 moviesViewModel.addFavorite(movie)
             else
-                moviesViewModel.removeFavorite(movie.id)
+                moviesViewModel.removeFavorite(movie)
         }
 
         setObservers()
         moviesViewModel.loadPopularMovies()
         moviesViewModel.loadGenres()
-        moviesViewModel.checkFavorites()
     }
 
     private fun setObservers () {

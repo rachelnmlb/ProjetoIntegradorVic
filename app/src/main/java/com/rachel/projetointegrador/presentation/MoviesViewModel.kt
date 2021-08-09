@@ -30,7 +30,7 @@ class MoviesViewModel : ViewModel() {
                 it.message?.let { message -> Log.e("Error loading movies", message) }
             }
             .subscribe {
-                popularMovies.value = it.results
+                popularMovies.value = checkFavorites(it.results)
             }
     }
 
@@ -42,7 +42,7 @@ class MoviesViewModel : ViewModel() {
                 it.message?.let { message -> Log.e("Error loading movies", message) }
             }
             .subscribe {
-                popularMovies.value = it.results
+                popularMovies.value = checkFavorites(it.results)
             }
     }
 
@@ -72,22 +72,26 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun addFavorite(movie: Movie) {
+        movie.isFavorite = true
         favoriteMovieRepository.addFavorite(movie)
-        favoriteMovies.value = favoriteMovieRepository.listFavorites()
-        checkFavorites()
+        updateFavorites()
     }
 
-    fun removeFavorite(movieId: Int) {
-        favoriteMovieRepository.removeFavorite(movieId)
-        favoriteMovies.value = favoriteMovieRepository.listFavorites()
-        checkFavorites()
+    fun removeFavorite(movie: Movie) {
+        movie.isFavorite = false
+        favoriteMovieRepository.removeFavorite(movie.id)
+        updateFavorites()
     }
 
-    fun checkFavorites() {
-        popularMovies.value?.forEach {
+    private fun updateFavorites() {
+        favoriteMovies.value = favoriteMovieRepository.listFavorites()
+        popularMovies.value = popularMovies.value
+    }
+
+    private fun checkFavorites(movies: MutableList<Movie>): MutableList<Movie> {
+        movies.forEach {
             it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
         }
-
-        popularMovies.value = popularMovies.value
+        return movies
     }
 }
