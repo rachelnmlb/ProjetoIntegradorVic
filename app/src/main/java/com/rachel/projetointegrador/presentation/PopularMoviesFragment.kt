@@ -59,6 +59,7 @@ class PopularMoviesFragment : Fragment() {
         setObservers()
         moviesViewModel.loadPopularMovies()
         moviesViewModel.loadGenres()
+        moviesViewModel.checkFavorites()
     }
 
     private fun setObservers () {

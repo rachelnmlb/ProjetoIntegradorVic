@@ -31,7 +31,6 @@ class MoviesViewModel : ViewModel() {
             }
             .subscribe {
                 popularMovies.value = it.results
-                checkFavorites()
             }
     }
 
@@ -44,7 +43,6 @@ class MoviesViewModel : ViewModel() {
             }
             .subscribe {
                 popularMovies.value = it.results
-                checkFavorites()
             }
     }
 
@@ -85,11 +83,11 @@ class MoviesViewModel : ViewModel() {
         checkFavorites()
     }
 
-    private fun checkFavorites() {
-        val favorites = popularMovies.value?.map {
+    fun checkFavorites() {
+        popularMovies.value?.forEach {
             it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
-            it
         }
-        popularMovies.value = favorites?.toMutableList()
+
+        popularMovies.value = popularMovies.value
     }
 }

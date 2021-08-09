@@ -27,9 +27,6 @@ class DetailActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.btnReturn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)}
         movieId = intent.extras?.get(MovieAdapter.MOVIE_ID) as Int
 
         genresDetailAdapter = GenresDetailAdapter(this)
@@ -51,6 +48,9 @@ class DetailActivity: AppCompatActivity() {
         detailViewModel.loadMovieDetail(movieId)
         castViewModel.loadCastList(movieId)
 
+        binding.btnReturn.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun setObserverMovieDetails (movieDetailViewModel: MovieDetailViewModel) {
