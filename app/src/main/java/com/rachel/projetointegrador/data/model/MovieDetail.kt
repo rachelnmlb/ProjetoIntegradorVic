@@ -8,6 +8,7 @@ import java.util.*
 data class MovieDetail(
     @SerializedName("id") val id : Int,
     @SerializedName("backdrop_path") val backdropPath: String? = null,
+    @SerializedName("poster_path") val posterPath: String? = null,
     @SerializedName("title") val title: String? = null,
     @SerializedName("vote_average") val rating: Float,
     @SerializedName("release_date") val releaseDate: Date? = null,

@@ -51,6 +51,13 @@ class DetailActivity: AppCompatActivity() {
         binding.btnReturn.setOnClickListener {
             onBackPressed()
         }
+
+        binding.favoriteDetail.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked)
+                detailViewModel.addFavorite()
+            else
+                detailViewModel.removeFavorite()
+        }
     }
 
     private fun setObserverMovieDetails (movieDetailViewModel: MovieDetailViewModel) {

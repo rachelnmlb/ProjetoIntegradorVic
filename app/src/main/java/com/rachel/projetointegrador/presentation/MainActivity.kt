@@ -10,6 +10,8 @@ import com.rachel.projetointegrador.presentation.adapter.FragmentAdapter
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var moviesViewModel: MoviesViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -19,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewpager)
 
-        ViewModelProvider(this).get(MoviesViewModel::class.java)
+        moviesViewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        moviesViewModel.updateFavorites()
     }
 }

@@ -72,20 +72,18 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun addFavorite(movie: Movie) {
-        movie.isFavorite = true
         favoriteMovieRepository.addFavorite(movie)
         updateFavorites()
     }
 
     fun removeFavorite(movie: Movie) {
-        movie.isFavorite = false
         favoriteMovieRepository.removeFavorite(movie.id)
         updateFavorites()
     }
 
-    private fun updateFavorites() {
+    fun updateFavorites() {
+        popularMovies.value = popularMovies.value?.let { checkFavorites(it) }
         favoriteMovies.value = favoriteMovieRepository.listFavorites()
-        popularMovies.value = popularMovies.value
     }
 
     private fun checkFavorites(movies: MutableList<Movie>): MutableList<Movie> {
