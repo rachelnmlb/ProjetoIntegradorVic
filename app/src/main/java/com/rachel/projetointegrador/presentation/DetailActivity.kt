@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.rachel.projetointegrador.data.Constants
 import com.rachel.projetointegrador.databinding.ActivityDetailBinding
 import com.rachel.projetointegrador.presentation.adapter.CastAdapter
 import com.rachel.projetointegrador.presentation.adapter.GenresDetailAdapter
@@ -71,7 +72,7 @@ class DetailActivity: AppCompatActivity() {
                 binding.txtNumberPercent.text = "${"%.0f".format(rating)}%"
 
                 Glide.with(this)
-                    .load("https://image.tmdb.org/t/p/w500${movieDetail.backdropPath}")
+                    .load("${Constants.IMAGE_BASE_URL.value}${movieDetail.backdropPath}")
                     .into(binding.imageDetailPoster)
 
                 genresDetailAdapter.dataSet.clear()

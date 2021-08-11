@@ -7,25 +7,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.rachel.projetointegrador.R
+import com.rachel.projetointegrador.databinding.FragmentMoviesBinding
 import com.rachel.projetointegrador.presentation.adapter.GenresAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
 
 class PopularMoviesFragment : Fragment() {
 
-    private lateinit var rvGenresList : RecyclerView
-    private lateinit var rvMoviesList : RecyclerView
     private lateinit var genresAdapter : GenresAdapter
     private lateinit var movieAdapter : MovieAdapter
     private lateinit var moviesViewModel : MoviesViewModel
+
+    private var _binding: FragmentMoviesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_movies, container, false)
+    ): View {
+        _binding = FragmentMoviesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,15 +34,20 @@ class PopularMoviesFragment : Fragment() {
         moviesViewModel = ViewModelProvider(requireActivity()).get(MoviesViewModel::class.java)
 
         movieAdapter = MovieAdapter(view.context, mutableListOf())
-        rvMoviesList = view.findViewById(R.id.movie_list)
-        rvMoviesList.adapter = movieAdapter
-        rvMoviesList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.movieList.adapter = movieAdapter
+        binding.movieList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
         genresAdapter = GenresAdapter(view.context, mutableListOf())
-        rvGenresList = view.findViewById(R.id.genres_list)
-        rvGenresList.adapter = genresAdapter
-        rvGenresList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.genresList.adapter = genresAdapter
+        binding.genresList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
+        bindEvents()
+        setObservers()
+        moviesViewModel.loadPopularMovies()
+        moviesViewModel.loadGenres()
+    }
+
+    private fun bindEvents() {
         genresAdapter.onGenreCheckedChange = { genreIds ->
             if (genreIds.isEmpty())
                 moviesViewModel.loadPopularMovies()
@@ -55,10 +61,6 @@ class PopularMoviesFragment : Fragment() {
             else
                 moviesViewModel.removeFavorite(movie)
         }
-
-        setObservers()
-        moviesViewModel.loadPopularMovies()
-        moviesViewModel.loadGenres()
     }
 
     private fun setObservers () {

@@ -24,8 +24,9 @@ class MainActivity : AppCompatActivity() {
         moviesViewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
     }
 
+    // Atualiza os favoritos após o retorno da activity de detalhes
     override fun onResume() {
         super.onResume()
-        moviesViewModel.updateFavorites()
+        moviesViewModel.notifyChanges()
     }
 }

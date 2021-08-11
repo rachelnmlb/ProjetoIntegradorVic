@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rachel.projetointegrador.R
+import com.rachel.projetointegrador.data.Constants
 import com.rachel.projetointegrador.data.model.Cast
 import com.rachel.projetointegrador.data.model.Genre
 import de.hdodenhof.circleimageview.CircleImageView
@@ -28,7 +29,7 @@ class CastAdapter (val context: Context, val dataSet: MutableList<Cast> = mutabl
 
     override fun onBindViewHolder(holder: CastViewHolder, position: Int) {
         Glide.with(context)
-            .load("https://image.tmdb.org/t/p/w500${dataSet[position].profilePath}")
+            .load("${Constants.IMAGE_BASE_URL.value}${dataSet[position].profilePath}")
             .into(holder.picture)
 
         holder.name.text = dataSet[position].name

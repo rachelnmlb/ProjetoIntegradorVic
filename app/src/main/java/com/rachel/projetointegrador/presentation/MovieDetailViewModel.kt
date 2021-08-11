@@ -1,6 +1,7 @@
 package com.rachel.projetointegrador.presentation
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rachel.projetointegrador.data.model.Movie
@@ -14,7 +15,11 @@ import io.reactivex.schedulers.Schedulers
 class MovieDetailViewModel: ViewModel() {
     private val detailRepository = MovieRepository()
     private val favoriteMoviesRepository = FavoriteMovieRepository()
-    val movieDetail = MutableLiveData<MovieDetail>()
+
+    private val _movieDetail = MutableLiveData<MovieDetail>()
+
+    val movieDetail: LiveData<MovieDetail> = _movieDetail
+
 
     fun loadMovieDetail(movieId: Int): Disposable{
         return detailRepository.fetchMovieDetail(movieId)
@@ -25,12 +30,12 @@ class MovieDetailViewModel: ViewModel() {
             }
             .subscribe {
                 it.isFavorite = favoriteMoviesRepository.isFavorite(it.id)
-                movieDetail.value = it
+                _movieDetail.value = it
             }
     }
 
     fun addFavorite() {
-        movieDetail.value?.let {
+        _movieDetail.value?.let {
             val movie = Movie(
                 id = it.id,
                 title = it.title,
@@ -43,7 +48,7 @@ class MovieDetailViewModel: ViewModel() {
     }
 
     fun removeFavorite() {
-        movieDetail.value?.let {
+        _movieDetail.value?.let {
             favoriteMoviesRepository.removeFavorite(it.id)
         }
     }

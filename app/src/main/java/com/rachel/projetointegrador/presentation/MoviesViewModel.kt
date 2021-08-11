@@ -1,6 +1,7 @@
 package com.rachel.projetointegrador.presentation
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rachel.projetointegrador.data.model.Genre
@@ -14,9 +15,13 @@ import io.reactivex.schedulers.Schedulers
 
 class MoviesViewModel : ViewModel() {
 
-    val popularMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
-    val favoriteMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
-    val genresList = MutableLiveData<MutableList<Genre>>(mutableListOf())
+    private val _popularMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
+    private val _favoriteMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
+    private val _genresList = MutableLiveData<MutableList<Genre>>(mutableListOf())
+
+    val popularMovies: LiveData<MutableList<Movie>> = _popularMovies
+    val favoriteMovies: LiveData<MutableList<Movie>> = _favoriteMovies
+    val genresList: LiveData<MutableList<Genre>> = _genresList
 
     private val genreRepository = GenreRepository()
     private val movieRepository = MovieRepository()
@@ -30,7 +35,7 @@ class MoviesViewModel : ViewModel() {
                 it.message?.let { message -> Log.e("Error loading movies", message) }
             }
             .subscribe {
-                popularMovies.value = checkFavorites(it.results)
+                _popularMovies.value = checkFavorites(it.results)
             }
     }
 
@@ -42,7 +47,7 @@ class MoviesViewModel : ViewModel() {
                 it.message?.let { message -> Log.e("Error loading movies", message) }
             }
             .subscribe {
-                popularMovies.value = checkFavorites(it.results)
+                _popularMovies.value = checkFavorites(it.results)
             }
     }
 
@@ -54,13 +59,13 @@ class MoviesViewModel : ViewModel() {
                 it.message?.let { message -> Log.e("Error loading generes", message) }
             }
             .subscribe {
-                genresList.value = it.genres
+                _genresList.value = it.genres
             }
     }
 
     fun loadFavoriteMovies() {
         val favorites = favoriteMovieRepository.listFavorites()
-        favoriteMovies.value = favorites
+        _favoriteMovies.value = favorites
     }
 
     fun loadFavoritesByGenre(genreIds: List<Int>) {
@@ -68,28 +73,28 @@ class MoviesViewModel : ViewModel() {
             .filter { movie -> movie.genreIds.containsAll(genreIds) }
             .toMutableList()
 
-        favoriteMovies.value = favorites
+        _favoriteMovies.value = favorites
     }
 
     fun addFavorite(movie: Movie) {
         favoriteMovieRepository.addFavorite(movie)
-        updateFavorites()
+        notifyChanges()
     }
 
     fun removeFavorite(movie: Movie) {
         favoriteMovieRepository.removeFavorite(movie.id)
-        updateFavorites()
+        notifyChanges()
     }
 
-    fun updateFavorites() {
-        popularMovies.value = popularMovies.value?.let { checkFavorites(it) }
-        favoriteMovies.value = favoriteMovieRepository.listFavorites()
+    fun notifyChanges() {
+        _popularMovies.value = popularMovies.value?.let { checkFavorites(it) }
+        _favoriteMovies.value = favoriteMovieRepository.listFavorites()
     }
 
     private fun checkFavorites(movies: MutableList<Movie>): MutableList<Movie> {
-        movies.forEach {
+        return movies.map {
             it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
-        }
-        return movies
+            it
+        }.toMutableList()
     }
 }

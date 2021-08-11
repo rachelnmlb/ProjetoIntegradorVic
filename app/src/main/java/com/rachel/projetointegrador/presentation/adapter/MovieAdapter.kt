@@ -11,6 +11,7 @@ import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rachel.projetointegrador.R
+import com.rachel.projetointegrador.data.Constants
 import com.rachel.projetointegrador.data.model.Movie
 import com.rachel.projetointegrador.presentation.DetailActivity
 
@@ -41,7 +42,7 @@ class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>): Recyc
         holder.title.text = movie.title
 
         Glide.with(context)
-            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
+            .load("${Constants.IMAGE_BASE_URL.value}${movie.posterPath}")
             .into(holder.poster)
 
         holder.poster.setOnClickListener {
