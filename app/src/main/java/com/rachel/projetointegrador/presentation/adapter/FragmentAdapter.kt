@@ -1,12 +1,12 @@
 package com.rachel.projetointegrador.presentation.adapter
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.rachel.projetointegrador.presentation.FavoriteMoviesFragment
 import com.rachel.projetointegrador.presentation.PopularMoviesFragment
 
-class FragmentAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class FragmentAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     companion object{
         const val POPULAR_MOVIES_LIST = 0
@@ -15,23 +15,15 @@ class FragmentAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
         const val TITLE_FAVORITES_MOVIES = 1
     }
 
-    override fun getCount(): Int {
+    override fun getItemCount(): Int {
         return 2
     }
 
-    override fun getItem(position: Int): Fragment {
+    override fun createFragment(position: Int): Fragment {
         return when(position) {
             POPULAR_MOVIES_LIST -> PopularMoviesFragment()
             FAVORITES_MOVIES_LIST -> FavoriteMoviesFragment()
             else -> PopularMoviesFragment()
-        }
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        return when (position) {
-            TITLE_MOVIES -> "Todos os Filmes"
-            TITLE_FAVORITES_MOVIES -> "Favoritos"
-            else -> null
         }
     }
 }

@@ -17,6 +17,7 @@
         android:src="@drawable/ic_search"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
     <EditText
         android:id="@+id/search"
         android:layout_width="wrap_content"
@@ -43,13 +44,14 @@
         app:tabTextColor="#223334"
         app:layout_constraintTop_toTopOf="@+id/search"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         tools:layout_editor_absoluteX="0dp" />
+
     <ImageView
         android:id="@+id/image_retangle"
         android:layout_width="wrap_content"
@@ -59,6 +61,7 @@
         android:layout_marginTop="@dimen/small"
         app:layout_constraintTop_toBottomOf="@id/search"
         app:layout_constraintLeft_toLeftOf="@id/image_search"/>
+
     <TextView
         android:id="@+id/search_mode"
         android:layout_width="wrap_content"
@@ -71,6 +74,7 @@
         android:layout_marginTop="@dimen/xxsmall"
         app:layout_constraintTop_toBottomOf="@+id/image_retangle"
         app:layout_constraintLeft_toLeftOf="@id/image_retangle"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,4 +84,5 @@
         android:textColor="@color/primary_green"
         app:layout_constraintTop_toBottomOf="@id/search_mode"
         app:layout_constraintLeft_toLeftOf="@id/search_mode"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
