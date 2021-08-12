@@ -17,15 +17,19 @@ class MoviesViewModel : ViewModel() {
 
     private val _popularMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
     private val _favoriteMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
+    private val _searchResults = MutableLiveData<MutableList<Movie>>(mutableListOf())
     private val _genresList = MutableLiveData<MutableList<Genre>>(mutableListOf())
 
     val popularMovies: LiveData<MutableList<Movie>> = _popularMovies
     val favoriteMovies: LiveData<MutableList<Movie>> = _favoriteMovies
+    val searchResults = _searchResults
     val genresList: LiveData<MutableList<Genre>> = _genresList
 
     private val genreRepository = GenreRepository()
     private val movieRepository = MovieRepository()
     private val favoriteMovieRepository = FavoriteMovieRepository()
+
+    private var lastSearchQuery: String = ""
 
     fun loadPopularMovies(): Disposable {
         return movieRepository.fetchMoviesList()
@@ -51,18 +55,6 @@ class MoviesViewModel : ViewModel() {
             }
     }
 
-    fun loadGenres(): Disposable {
-        return genreRepository.fetchGenresList()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                it.message?.let { message -> Log.e("Error loading generes", message) }
-            }
-            .subscribe {
-                _genresList.value = it.genres
-            }
-    }
-
     fun loadFavoriteMovies() {
         val favorites = favoriteMovieRepository.listFavorites()
         _favoriteMovies.value = favorites
@@ -74,6 +66,43 @@ class MoviesViewModel : ViewModel() {
             .toMutableList()
 
         _favoriteMovies.value = favorites
+    }
+
+    fun repeatLastSearch(): Disposable {
+        return searchMovies(lastSearchQuery);
+    }
+
+    fun searchMovies(query: String): Disposable {
+        lastSearchQuery = query
+        return movieRepository.searchMovies(query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                it.message?.let { message -> Log.e("Error loading movies", message) }
+            }
+            .subscribe {
+                _searchResults.value = checkFavorites(it.results)
+            }
+    }
+
+    fun filterSearchResultsByGenre(genreIds: List<Int>) {
+        var moviesByGenre = _searchResults.value
+            ?.filter { movie -> movie.genreIds.containsAll(genreIds) }
+            ?.toMutableList()
+
+        _searchResults.value = moviesByGenre
+    }
+
+    fun loadGenres(): Disposable {
+        return genreRepository.fetchGenresList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                it.message?.let { message -> Log.e("Error loading generes", message) }
+            }
+            .subscribe {
+                _genresList.value = it.genres
+            }
     }
 
     fun addFavorite(movie: Movie) {

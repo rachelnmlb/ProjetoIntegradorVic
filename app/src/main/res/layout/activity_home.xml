@@ -76,6 +76,7 @@
         app:layout_constraintLeft_toLeftOf="@id/image_retangle"/>
 
     <TextView
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/back"
@@ -84,5 +85,14 @@
         android:textColor="@color/primary_green"
         app:layout_constraintTop_toBottomOf="@id/search_mode"
         app:layout_constraintLeft_toLeftOf="@id/search_mode"/>
+
+    <FrameLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

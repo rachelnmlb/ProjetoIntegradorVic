@@ -26,4 +26,6 @@ interface TMDBService {
     @GET("movie/{movie_id}")
     fun getMovieDetail(@Path("movie_id") movieId: Int): Observable<MovieDetail>
 
+    @GET("search/movie")
+    fun searchMovies(@Query(value = "query", encoded = true) query: String): Observable<MoviesList>
 }

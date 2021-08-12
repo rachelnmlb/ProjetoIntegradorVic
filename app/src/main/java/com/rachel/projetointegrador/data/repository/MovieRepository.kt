@@ -16,4 +16,8 @@ class MovieRepository {
     fun fetchMovieDetail( movieId: Int): Observable<MovieDetail> {
         return Network.getService().getMovieDetail(movieId)
     }
+
+    fun searchMovies(query: String): Observable<MoviesList> {
+        return Network.getService().searchMovies(query)
+    }
 }
