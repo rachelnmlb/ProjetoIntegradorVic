@@ -22,7 +22,7 @@ class MoviesViewModel : ViewModel() {
 
     val popularMovies: LiveData<MutableList<Movie>> = _popularMovies
     val favoriteMovies: LiveData<MutableList<Movie>> = _favoriteMovies
-    val searchResults = _searchResults
+    val searchResults: LiveData<MutableList<Movie>> = _searchResults
     val genresList: LiveData<MutableList<Genre>> = _genresList
 
     private val genreRepository = GenreRepository()
