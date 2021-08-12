@@ -112,7 +112,8 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun notifyChanges() {
-        _popularMovies.value = popularMovies.value?.let { checkFavorites(it) }
+        _popularMovies.value = _popularMovies.value?.let { checkFavorites(it) }
+        _searchResults.value = _searchResults.value?.let { checkFavorites(it) }
         _favoriteMovies.value = favoriteMovieRepository.listFavorites()
     }
 
