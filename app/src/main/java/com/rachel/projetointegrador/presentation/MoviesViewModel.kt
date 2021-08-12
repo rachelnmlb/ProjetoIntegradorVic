@@ -35,24 +35,22 @@ class MoviesViewModel : ViewModel() {
         return movieRepository.fetchMoviesList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                it.message?.let { message -> Log.e("Error loading movies", message) }
-            }
-            .subscribe {
+            .subscribe ({
                 _popularMovies.value = checkFavorites(it.results)
-            }
+            }, {
+                it.message?.let { message -> Log.e("Error loading movies", message) }
+            })
     }
 
     fun loadMoviesByGenre(genreIds: List<Int>): Disposable {
         return movieRepository.fetchMovieByGenre(genreIds)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                it.message?.let { message -> Log.e("Error loading movies", message) }
-            }
-            .subscribe {
+            .subscribe ({
                 _popularMovies.value = checkFavorites(it.results)
-            }
+            }, {
+                it.message?.let { message -> Log.e("Error loading movies", message) }
+            })
     }
 
     fun loadFavoriteMovies() {
@@ -69,7 +67,7 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun repeatLastSearch(): Disposable {
-        return searchMovies(lastSearchQuery);
+        return searchMovies(lastSearchQuery)
     }
 
     fun searchMovies(query: String): Disposable {
@@ -77,16 +75,15 @@ class MoviesViewModel : ViewModel() {
         return movieRepository.searchMovies(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                it.message?.let { message -> Log.e("Error loading movies", message) }
-            }
-            .subscribe {
+            .subscribe ({
                 _searchResults.value = checkFavorites(it.results)
-            }
+            }, {
+                it.message?.let { message -> Log.e("Error loading movies", message) }
+            })
     }
 
     fun filterSearchResultsByGenre(genreIds: List<Int>) {
-        var moviesByGenre = _searchResults.value
+        val moviesByGenre = _searchResults.value
             ?.filter { movie -> movie.genreIds.containsAll(genreIds) }
             ?.toMutableList()
 
@@ -97,12 +94,11 @@ class MoviesViewModel : ViewModel() {
         return genreRepository.fetchGenresList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                it.message?.let { message -> Log.e("Error loading generes", message) }
-            }
-            .subscribe {
+            .subscribe ({
                 _genresList.value = it.genres
-            }
+            }, {
+                it.message?.let { message -> Log.e("Error loading generes", message) }
+            })
     }
 
     fun addFavorite(movie: Movie) {
