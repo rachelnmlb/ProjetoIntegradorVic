@@ -4,7 +4,7 @@ import com.rachel.projetointegrador.data.model.MovieDetail
 import com.rachel.projetointegrador.data.model.MoviesList
 import io.reactivex.Observable
 
-class MovieRepository {
+object MovieRepository {
     fun fetchMoviesList(): Observable<MoviesList>{
         return Network.getService().getPopularMoviesList()
     }

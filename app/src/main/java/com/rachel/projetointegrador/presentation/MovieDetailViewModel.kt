@@ -13,8 +13,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class MovieDetailViewModel: ViewModel() {
-    private val detailRepository = MovieRepository()
-    private val favoriteMoviesRepository = FavoriteMovieRepository()
+    private val detailRepository = MovieRepository
+    private val favoriteMoviesRepository = FavoriteMovieRepository
 
     private val _movieDetail = MutableLiveData<MovieDetail>()
 
@@ -25,13 +25,12 @@ class MovieDetailViewModel: ViewModel() {
         return detailRepository.fetchMovieDetail(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                it.message?.let { message -> Log.e("Error loading movies", message) }
-            }
-            .subscribe {
+            .subscribe ({
                 it.isFavorite = favoriteMoviesRepository.isFavorite(it.id)
                 _movieDetail.value = it
-            }
+            }, {
+                it.message?.let { message -> Log.e("Error loading movie", message) }
+            })
     }
 
     fun addFavorite() {

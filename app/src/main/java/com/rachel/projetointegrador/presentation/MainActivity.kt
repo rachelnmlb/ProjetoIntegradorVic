@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindEvents() {
-        binding.imageSearch.setOnClickListener {
+        binding.searchButton.setOnClickListener {
             val query = binding.search.text.toString()
 
             if (!query.isNullOrEmpty()) {

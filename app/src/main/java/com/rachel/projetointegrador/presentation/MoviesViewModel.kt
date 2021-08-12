@@ -25,9 +25,9 @@ class MoviesViewModel : ViewModel() {
     val searchResults: LiveData<MutableList<Movie>> = _searchResults
     val genresList: LiveData<MutableList<Genre>> = _genresList
 
-    private val genreRepository = GenreRepository()
-    private val movieRepository = MovieRepository()
-    private val favoriteMovieRepository = FavoriteMovieRepository()
+    private val genreRepository = GenreRepository
+    private val movieRepository = MovieRepository
+    private val favoriteMovieRepository = FavoriteMovieRepository
 
     private var lastSearchQuery: String = ""
 

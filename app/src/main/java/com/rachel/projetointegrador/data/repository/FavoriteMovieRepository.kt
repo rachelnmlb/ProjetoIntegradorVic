@@ -2,7 +2,7 @@ package com.rachel.projetointegrador.data.repository
 
 import com.rachel.projetointegrador.data.model.Movie
 
-class FavoriteMovieRepository {
+object FavoriteMovieRepository {
 
     fun addFavorite(movie: Movie) {
         movie.isFavorite = true
@@ -22,7 +22,5 @@ class FavoriteMovieRepository {
         return ArrayList(favorites.values)
     }
 
-    private companion object {
-        val favorites : MutableMap<Int, Movie> = mutableMapOf()
-    }
+    val favorites : MutableMap<Int, Movie> = mutableMapOf()
 }

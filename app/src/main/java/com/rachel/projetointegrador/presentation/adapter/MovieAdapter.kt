@@ -43,6 +43,8 @@ class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>): Recyc
 
         Glide.with(context)
             .load("${Constants.IMAGE_BASE_URL.value}${movie.posterPath}")
+            .placeholder(R.drawable.poster_fallback)
+            .fallback(R.drawable.poster_fallback)
             .into(holder.poster)
 
         holder.poster.setOnClickListener {

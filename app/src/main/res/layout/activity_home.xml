@@ -8,7 +8,7 @@
     tools:context=".presentation.MainActivity">
 
     <ImageButton
-        android:id="@+id/image_search"
+        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/large"
@@ -27,8 +27,8 @@
         android:hint="@string/movie_search"
         android:inputType="text"
         android:textSize="@dimen/small_sp"
-        app:layout_constraintLeft_toRightOf="@+id/image_search"
-        app:layout_constraintTop_toTopOf="@+id/image_search" />
+        app:layout_constraintLeft_toRightOf="@+id/search_button"
+        app:layout_constraintTop_toTopOf="@+id/search_button" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -60,7 +60,7 @@
         android:visibility="invisible"
         android:layout_marginTop="@dimen/small"
         app:layout_constraintTop_toBottomOf="@id/search"
-        app:layout_constraintLeft_toLeftOf="@id/image_search"/>
+        app:layout_constraintLeft_toLeftOf="@id/search_button"/>
 
     <TextView
         android:id="@+id/search_mode"

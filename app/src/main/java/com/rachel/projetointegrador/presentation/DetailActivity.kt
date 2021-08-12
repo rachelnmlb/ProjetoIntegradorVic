@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.data.Constants
 import com.rachel.projetointegrador.databinding.ActivityDetailBinding
 import com.rachel.projetointegrador.presentation.adapter.CastAdapter
@@ -72,6 +73,8 @@ class DetailActivity: AppCompatActivity() {
 
                 Glide.with(this)
                     .load("${Constants.IMAGE_BASE_URL.value}${movieDetail.backdropPath}")
+                    .placeholder(R.drawable.poster_fallback)
+                    .fallback(R.drawable.poster_fallback)
                     .into(binding.imageDetailPoster)
 
                 genresDetailAdapter.dataSet.clear()

@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 
 class CastViewModel : ViewModel(){
 
-    private val castRepository = CastRepository()
+    private val castRepository = CastRepository
     val castList = MutableLiveData<CastList>()
 
     fun loadCastList(movieId: Int): Disposable {
@@ -19,12 +19,11 @@ class CastViewModel : ViewModel(){
         return castRepository.fetchCastList(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {
-                it.message?.let { message -> Log.e("Error loading movies", message) }
-            }
-            .subscribe {
+            .subscribe ({
                 castList.value = it
-            }
+            }, {
+                it.message?.let { message -> Log.e("Error loading cast", message)}
+            })
     }
 
 }
