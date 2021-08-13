@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.data.Constants
 import com.rachel.projetointegrador.data.RequestStatus
+import com.rachel.projetointegrador.data.model.MovieDetail
 import com.rachel.projetointegrador.databinding.ActivityDetailBinding
 import com.rachel.projetointegrador.presentation.adapter.CastAdapter
 import com.rachel.projetointegrador.presentation.adapter.GenresDetailAdapter
@@ -67,6 +68,7 @@ class DetailActivity: AppCompatActivity() {
                 binding.favoriteDetail.isChecked = movieDetail.isFavorite
                 binding.releaseYear.text = movieDetail.releaseYear()
                 binding.movieRuntime.text = movieDetail.runtimeString()
+                binding.parentalGuidance.text = "PG-${movieDetail.parentalGuidance()}"
 
                 val rating = movieDetail.rating * 10.0
                 binding.ratingPercent.text = "${"%.0f".format(rating)}%"
@@ -84,7 +86,7 @@ class DetailActivity: AppCompatActivity() {
         )
     }
 
-    private fun observeCastList (){
+    private fun observeCastList() {
         castViewModel.castList.observe(this,
             {castList ->
                 castAdapter.dataSet.clear()

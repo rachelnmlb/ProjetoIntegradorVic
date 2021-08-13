@@ -23,7 +23,7 @@ interface TMDBService {
     @GET("movie/{movie_id}/credits")
     fun getMovieCast(@Path("movie_id") movieId: Int): Observable<CastList>
 
-    @GET("movie/{movie_id}")
+    @GET("movie/{movie_id}?append_to_response=release_dates")
     fun getMovieDetail(@Path("movie_id") movieId: Int): Observable<MovieDetail>
 
     @GET("search/movie")

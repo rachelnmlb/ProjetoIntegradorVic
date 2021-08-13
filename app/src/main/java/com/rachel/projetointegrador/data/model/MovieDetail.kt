@@ -12,6 +12,7 @@ data class MovieDetail(
     @SerializedName("runtime") val runtime: Int? = null,
     @SerializedName("genres") val genres: List<Genre>,
     @SerializedName("overview") val overview: String? = null,
+    @SerializedName("release_dates") val releaseDates: ReleaseDateResultList?,
     var isFavorite: Boolean = false
     ) {
 
@@ -44,5 +45,12 @@ data class MovieDetail(
         }
 
         return durationText.trim()
+    }
+
+    fun parentalGuidance(): String {
+        return releaseDates?.results
+            ?.flatMap { it.releaseDates!! }
+            ?.firstOrNull {  !it.certification.isNullOrBlank() }
+            ?.certification ?: ""
     }
 }
