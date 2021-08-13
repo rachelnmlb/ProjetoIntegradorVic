@@ -20,7 +20,7 @@ abstract class MoviesBaseFragment : Fragment() {
     protected lateinit var moviesViewModel : MoviesViewModel
 
     private var _binding: FragmentMoviesBinding? = null
-    private val binding get() = _binding!!
+    protected val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,11 +37,9 @@ abstract class MoviesBaseFragment : Fragment() {
 
         movieAdapter = MovieAdapter(view.context, mutableListOf())
         binding.movieList.adapter = movieAdapter
-        binding.movieList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
         genresAdapter = GenresAdapter(view.context, mutableListOf())
         binding.genresList.adapter = genresAdapter
-        binding.genresList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
 
         bindEvents()
         setObservers()

@@ -1,5 +1,7 @@
 package com.rachel.projetointegrador.presentation
 
+import android.view.View
+
 class SearchMoviesFragment : MoviesBaseFragment() {
 
     override fun loadMovieData() {
@@ -17,10 +19,26 @@ class SearchMoviesFragment : MoviesBaseFragment() {
     override fun observeMovies() {
         moviesViewModel.searchResults.observe(viewLifecycleOwner,
             { movies ->
-                movieAdapter.dataSet.clear()
-                movieAdapter.dataSet.addAll(movies)
-                movieAdapter.notifyDataSetChanged()
+                if (movies.isNotEmpty()) {
+                    movieAdapter.dataSet.clear()
+                    movieAdapter.dataSet.addAll(movies)
+                    movieAdapter.notifyDataSetChanged()
+                    showResults()
+                } else {
+                    showNotFound()
+                }
             }
         )
+    }
+
+    private fun showNotFound() {
+        binding.movieList.visibility = View.GONE
+        binding.notFoundNotification.visibility = View.VISIBLE
+    }
+
+    private fun showResults() {
+        binding.movieList.scrollToPosition(0)
+        binding.movieList.visibility = View.VISIBLE
+        binding.notFoundNotification.visibility = View.GONE
     }
 }

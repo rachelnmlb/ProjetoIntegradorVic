@@ -21,6 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="@+id/tipo"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/genres"/>
@@ -31,9 +33,55 @@
         android:id="@+id/movie_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/genres_chip_group"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:listitem="@layout/movie"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/not_found_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/genres_chip_group">
+
+        <ImageView
+            android:id="@+id/not_found_lens"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_marginTop="@dimen/xxlarge"
+            android:src="@drawable/ic_movie_do_not_exist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/not_found_text"
+            style="@style/system_falied"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movie_do_not_exist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/not_found_lens" />
+
+        <TextView
+            android:id="@+id/not_found_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:fontFamily="@font/lato_regular"
+            android:paddingHorizontal="@dimen/small"
+            android:text="@string/not_found"
+            android:textAlignment="center"
+            android:textColor="@color/black_50_opacity"
+            android:textSize="@dimen/small_sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/not_found_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

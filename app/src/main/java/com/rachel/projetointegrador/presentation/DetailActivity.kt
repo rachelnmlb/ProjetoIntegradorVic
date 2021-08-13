@@ -36,14 +36,10 @@ class DetailActivity: AppCompatActivity() {
         movieId = intent.extras?.get(MovieAdapter.MOVIE_ID) as Int
 
         genresDetailAdapter = GenresDetailAdapter(this)
-        rvGenreDetail = binding.genresMovieDetails
-        rvGenreDetail.adapter = genresDetailAdapter
-        rvGenreDetail.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.genresMovieDetails.adapter = genresDetailAdapter
 
         castAdapter = CastAdapter(this)
-        rvCastList = binding.actorList
-        rvCastList.adapter = castAdapter
-        rvCastList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.actorList.adapter = castAdapter
 
         detailViewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
         castViewModel = ViewModelProvider(this).get(CastViewModel::class.java)
