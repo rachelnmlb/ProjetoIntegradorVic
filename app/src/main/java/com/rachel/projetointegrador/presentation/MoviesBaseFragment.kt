@@ -1,5 +1,6 @@
 package com.rachel.projetointegrador.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rachel.projetointegrador.data.RequestStatus
 import com.rachel.projetointegrador.databinding.FragmentMoviesBinding
 import com.rachel.projetointegrador.presentation.adapter.GenresAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
@@ -55,6 +57,15 @@ abstract class MoviesBaseFragment : Fragment() {
 
         onGenreChange()
         onFavoriteChange()
+
+        moviesViewModel.requestStatus.observe(viewLifecycleOwner,
+            { requestStatus ->
+                if (requestStatus == RequestStatus.ERROR) {
+                    val intent = Intent(requireContext(), SystemFailedActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        )
     }
 
     private fun onFavoriteChange() {

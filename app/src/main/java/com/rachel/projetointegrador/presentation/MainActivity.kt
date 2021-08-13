@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         binding.searchButton.setOnClickListener {
             val query = binding.search.text.toString()
 
-            if (!query.isNullOrEmpty()) {
+            if (query.isNotEmpty()) {
                 enableSearchMode()
                 moviesViewModel.searchMovies(query)
             }

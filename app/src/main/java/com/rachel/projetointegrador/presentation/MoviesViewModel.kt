@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.rachel.projetointegrador.data.RequestStatus
 import com.rachel.projetointegrador.data.model.Genre
 import com.rachel.projetointegrador.data.model.Movie
 import com.rachel.projetointegrador.data.repository.FavoriteMovieRepository
@@ -15,51 +16,51 @@ import io.reactivex.schedulers.Schedulers
 
 class MoviesViewModel : ViewModel() {
 
+
+
     private val _popularMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
     private val _favoriteMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
     private val _searchResults = MutableLiveData<MutableList<Movie>>(mutableListOf())
     private val _genresList = MutableLiveData<MutableList<Genre>>(mutableListOf())
+    private val _requestStatus = MutableLiveData<RequestStatus>()
 
     val popularMovies: LiveData<MutableList<Movie>> = _popularMovies
     val favoriteMovies: LiveData<MutableList<Movie>> = _favoriteMovies
     val searchResults: LiveData<MutableList<Movie>> = _searchResults
     val genresList: LiveData<MutableList<Genre>> = _genresList
-
-    private val genreRepository = GenreRepository
-    private val movieRepository = MovieRepository
-    private val favoriteMovieRepository = FavoriteMovieRepository
+    val requestStatus: LiveData<RequestStatus> = _requestStatus
 
     private var lastSearchQuery: String = ""
 
     fun loadPopularMovies(): Disposable {
-        return movieRepository.fetchMoviesList()
+        return MovieRepository.fetchMoviesList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
                 _popularMovies.value = checkFavorites(it.results)
             }, {
-                it.message?.let { message -> Log.e("Error loading movies", message) }
+                handleError("Error loading movies", it)
             })
     }
 
     fun loadMoviesByGenre(genreIds: List<Int>): Disposable {
-        return movieRepository.fetchMovieByGenre(genreIds)
+        return MovieRepository.fetchMovieByGenre(genreIds)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
                 _popularMovies.value = checkFavorites(it.results)
             }, {
-                it.message?.let { message -> Log.e("Error loading movies", message) }
+                handleError("Error loading movies", it)
             })
     }
 
     fun loadFavoriteMovies() {
-        val favorites = favoriteMovieRepository.listFavorites()
+        val favorites = FavoriteMovieRepository.listFavorites()
         _favoriteMovies.value = favorites
     }
 
     fun loadFavoritesByGenre(genreIds: List<Int>) {
-        val favorites = favoriteMovieRepository.listFavorites()
+        val favorites = FavoriteMovieRepository.listFavorites()
             .filter { movie -> movie.genreIds.containsAll(genreIds) }
             .toMutableList()
 
@@ -72,13 +73,13 @@ class MoviesViewModel : ViewModel() {
 
     fun searchMovies(query: String): Disposable {
         lastSearchQuery = query
-        return movieRepository.searchMovies(query)
+        return MovieRepository.searchMovies(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
                 _searchResults.value = checkFavorites(it.results)
             }, {
-                it.message?.let { message -> Log.e("Error loading movies", message) }
+                handleError("Error loading movies", it)
             })
     }
 
@@ -91,35 +92,40 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun loadGenres(): Disposable {
-        return genreRepository.fetchGenresList()
+        return GenreRepository.fetchGenresList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
                 _genresList.value = it.genres
             }, {
-                it.message?.let { message -> Log.e("Error loading generes", message) }
+                handleError("Error loading genres", it)
             })
     }
 
     fun addFavorite(movie: Movie) {
-        favoriteMovieRepository.addFavorite(movie)
+        FavoriteMovieRepository.addFavorite(movie)
         notifyChanges()
     }
 
     fun removeFavorite(movie: Movie) {
-        favoriteMovieRepository.removeFavorite(movie.id)
+        FavoriteMovieRepository.removeFavorite(movie.id)
         notifyChanges()
     }
 
     fun notifyChanges() {
         _popularMovies.value = _popularMovies.value?.let { checkFavorites(it) }
         _searchResults.value = _searchResults.value?.let { checkFavorites(it) }
-        _favoriteMovies.value = favoriteMovieRepository.listFavorites()
+        _favoriteMovies.value = FavoriteMovieRepository.listFavorites()
+    }
+
+    private fun handleError(tag: String, error: Throwable) {
+        _requestStatus.value = RequestStatus.ERROR
+        error.message?.let { message -> Log.e(tag, message) }
     }
 
     private fun checkFavorites(movies: MutableList<Movie>): MutableList<Movie> {
         return movies.map {
-            it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
+            it.isFavorite = FavoriteMovieRepository.isFavorite(it.id)
             it
         }.toMutableList()
     }

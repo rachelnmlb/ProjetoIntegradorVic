@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoIntegrador">
         <activity android:name=".presentation.DetailActivity"></activity>
+        <activity android:name=".presentation.SystemFailedActivity"></activity>
         <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

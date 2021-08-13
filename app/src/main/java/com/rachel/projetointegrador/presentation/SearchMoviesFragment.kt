@@ -3,7 +3,6 @@ package com.rachel.projetointegrador.presentation
 class SearchMoviesFragment : MoviesBaseFragment() {
 
     override fun loadMovieData() {
-        moviesViewModel.repeatLastSearch()
     }
 
     override fun onGenreChange() {

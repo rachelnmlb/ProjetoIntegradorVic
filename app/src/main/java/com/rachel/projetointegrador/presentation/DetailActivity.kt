@@ -1,5 +1,6 @@
 package com.rachel.projetointegrador.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.data.Constants
+import com.rachel.projetointegrador.data.RequestStatus
 import com.rachel.projetointegrador.databinding.ActivityDetailBinding
 import com.rachel.projetointegrador.presentation.adapter.CastAdapter
 import com.rachel.projetointegrador.presentation.adapter.GenresDetailAdapter
@@ -19,6 +21,9 @@ class DetailActivity: AppCompatActivity() {
     private lateinit var rvGenreDetail: RecyclerView
     private lateinit var genresDetailAdapter: GenresDetailAdapter
     private var movieId: Int = 0
+
+    private lateinit var detailViewModel: MovieDetailViewModel
+    private lateinit var castViewModel: CastViewModel
 
     private val binding by lazy {
         ActivityDetailBinding.inflate(layoutInflater)
@@ -40,11 +45,12 @@ class DetailActivity: AppCompatActivity() {
         rvCastList.adapter = castAdapter
         rvCastList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        val detailViewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
-        val castViewModel = ViewModelProvider(this).get(CastViewModel::class.java)
+        detailViewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
+        castViewModel = ViewModelProvider(this).get(CastViewModel::class.java)
 
-        setObserverMovieDetails(detailViewModel)
-        setObserverCastList(castViewModel)
+        observeMovieDetails()
+        observeCastList()
+        observeRequestStatus()
 
         detailViewModel.loadMovieDetail(movieId)
         castViewModel.loadCastList(movieId)
@@ -61,8 +67,8 @@ class DetailActivity: AppCompatActivity() {
         }
     }
 
-    private fun setObserverMovieDetails (movieDetailViewModel: MovieDetailViewModel) {
-        movieDetailViewModel.movieDetail.observe(this,
+    private fun observeMovieDetails () {
+        detailViewModel.movieDetail.observe(this,
             { movieDetail ->
                 binding.txtMovieTitle.text = movieDetail.title
                 binding.txtSinopsys.text = movieDetail.overview
@@ -84,13 +90,24 @@ class DetailActivity: AppCompatActivity() {
         )
     }
 
-    private fun setObserverCastList (castViewModel: CastViewModel){
+    private fun observeCastList (){
         castViewModel.castList.observe(this,
             {castList ->
                 castAdapter.dataSet.clear()
                 castAdapter.dataSet.addAll(castList.cast)
                 castAdapter.notifyDataSetChanged()
             })
+    }
+
+    private fun observeRequestStatus() {
+        detailViewModel.requestStatus.observe(this,
+            { requestStatus ->
+                if (requestStatus == RequestStatus.ERROR) {
+                    val intent = Intent(this, SystemFailedActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        )
     }
 
 }
