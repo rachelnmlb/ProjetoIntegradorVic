@@ -16,6 +16,9 @@ data class MovieDetail(
     ) {
 
     fun getReleaseYear(): String {
-        return releaseDate?.substring(0, 4) ?: ""
+        return releaseDate?.let {
+            if (it.length < 4) ""
+            else it.substring(0, 4)
+        }?: ""
     }
 }

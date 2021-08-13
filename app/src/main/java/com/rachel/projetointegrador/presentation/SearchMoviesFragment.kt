@@ -37,7 +37,6 @@ class SearchMoviesFragment : MoviesBaseFragment() {
     }
 
     private fun showResults() {
-        binding.movieList.scrollToPosition(0)
         binding.movieList.visibility = View.VISIBLE
         binding.notFoundNotification.visibility = View.GONE
     }

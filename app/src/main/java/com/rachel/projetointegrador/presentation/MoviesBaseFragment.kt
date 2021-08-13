@@ -47,6 +47,10 @@ abstract class MoviesBaseFragment : Fragment() {
         loadGenreData()
     }
 
+    fun scrollToTop() {
+        binding.movieList.scrollToPosition(0)
+    }
+
     protected abstract fun observeMovies()
     protected abstract fun loadMovieData()
     protected abstract fun onGenreChange()

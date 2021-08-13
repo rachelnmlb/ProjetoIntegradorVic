@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.data.Constants
@@ -16,9 +14,7 @@ import com.rachel.projetointegrador.presentation.adapter.GenresDetailAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
 
 class DetailActivity: AppCompatActivity() {
-    private lateinit var rvCastList: RecyclerView
     private lateinit var castAdapter: CastAdapter
-    private lateinit var rvGenreDetail: RecyclerView
     private lateinit var genresDetailAdapter: GenresDetailAdapter
     private var movieId: Int = 0
 

@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             if (query.isNotEmpty()) {
                 enableSearchMode()
                 moviesViewModel.searchMovies(query)
+                searchFragment.scrollToTop()
             }
         }
 
