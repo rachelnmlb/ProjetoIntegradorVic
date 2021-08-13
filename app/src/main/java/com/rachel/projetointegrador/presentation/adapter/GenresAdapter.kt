@@ -27,6 +27,9 @@ class GenresAdapter(val context: Context, val dataSet: MutableList<Genre>) : Rec
         val genre = dataSet[position]
         holder.genres.text = genre.name
 
+        holder.genres.setOnCheckedChangeListener(null)
+        holder.genres.isChecked = idGenresList.contains(genre.id)
+
         holder.genres.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 idGenresList.add(genre.id)

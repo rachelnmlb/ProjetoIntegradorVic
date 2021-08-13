@@ -48,7 +48,7 @@ abstract class MoviesBaseFragment : Fragment() {
     }
 
     fun scrollToTop() {
-        binding.movieList.scrollToPosition(0)
+        binding.movieList.smoothScrollToPosition(0)
     }
 
     protected abstract fun observeMovies()

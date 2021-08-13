@@ -8,6 +8,7 @@ class PopularMoviesFragment : MoviesBaseFragment() {
 
     override fun onGenreChange() {
         genresAdapter.onGenreCheckedChange = { genreIds ->
+            scrollToTop()
             if (genreIds.isEmpty())
                 moviesViewModel.loadPopularMovies()
             else
