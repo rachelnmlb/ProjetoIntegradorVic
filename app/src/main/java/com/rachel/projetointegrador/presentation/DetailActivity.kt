@@ -62,13 +62,14 @@ class DetailActivity: AppCompatActivity() {
     private fun observeMovieDetails () {
         detailViewModel.movieDetail.observe(this,
             { movieDetail ->
-                binding.txtMovieTitle.text = movieDetail.title
-                binding.txtSinopsys.text = movieDetail.overview
+                binding.movieTitle.text = movieDetail.title
+                binding.overview.text = movieDetail.overview
                 binding.favoriteDetail.isChecked = movieDetail.isFavorite
-                binding.txtMovieYear.text = movieDetail.releaseYear()
+                binding.releaseYear.text = movieDetail.releaseYear()
+                binding.movieRuntime.text = movieDetail.runtimeString()
 
                 val rating = movieDetail.rating * 10.0
-                binding.txtNumberPercent.text = "${"%.0f".format(rating)}%"
+                binding.ratingPercent.text = "${"%.0f".format(rating)}%"
 
                 Glide.with(this)
                     .load("${Constants.IMAGE_BASE_URL.value}${movieDetail.backdropPath}")

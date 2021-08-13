@@ -35,13 +35,13 @@
         android:textOn=""
         android:layout_marginLeft="@dimen/xsmall"
         android:layout_marginTop="@dimen/xsmall"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_movie_title"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txt_movie_title" />
+        app:layout_constraintTop_toTopOf="@+id/movie_title" />
 
 
     <TextView
-        android:id="@+id/txt_movie_title"
+        android:id="@+id/movie_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -56,7 +56,7 @@
         tools:text="Ford vs Ferrari" />
 
     <TextView
-        android:id="@+id/txt_movie_year"
+        android:id="@+id/release_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato_regular"
@@ -64,42 +64,42 @@
         android:layout_marginTop="@dimen/small"
         android:textColor="@color/grey_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/movie_title"
         tools:text="2019" />
 
     <TextView
-        android:id="@+id/txt_parental_Guidance"
+        android:id="@+id/parental_guidance"
         android:textColor="@color/black_50_opacity"
         android:fontFamily="@font/lato_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/medium"
-        app:layout_constraintStart_toEndOf="@+id/txt_movie_year"
-        app:layout_constraintTop_toTopOf="@+id/txt_movie_year"
+        app:layout_constraintStart_toEndOf="@+id/release_year"
+        app:layout_constraintTop_toTopOf="@+id/release_year"
         tools:text="PG-13" />
 
     <TextView
-        android:id="@+id/txt_length"
+        android:id="@+id/movie_runtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black_50_opacity"
         android:fontFamily="@font/lato_regular"
         android:layout_marginStart="@dimen/medium"
-        app:layout_constraintStart_toEndOf="@+id/txt_parental_Guidance"
-        app:layout_constraintTop_toTopOf="@+id/txt_parental_Guidance"
+        app:layout_constraintStart_toEndOf="@+id/parental_guidance"
+        app:layout_constraintTop_toTopOf="@+id/parental_guidance"
         tools:text="2h 32min" />
 
 
     <TextView
-        android:id="@+id/txt_sinopsys"
+        android:id="@+id/overview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/small"
         android:layout_marginTop="@dimen/small"
         android:fontFamily="@font/lato_regular"
         android:textColor="@color/black_50_opacity"
-        app:layout_constraintLeft_toLeftOf="@+id/txt_sinopsys_title"
-        app:layout_constraintTop_toBottomOf="@+id/txt_sinopsys_title"
+        app:layout_constraintLeft_toLeftOf="@+id/overview_title"
+        app:layout_constraintTop_toBottomOf="@+id/overview_title"
         tools:text="O projetista Carroll Shelby e o piloto Ken Miles enfrentaram a interferência empresarial, as leis da física e os próprios demônios para construir um carro de corrida para a Ford Motor derrotar a hegemonia de Enzo Ferrari nas 24 horas de Le Mans" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -111,11 +111,11 @@
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_actor"
+        app:layout_constraintTop_toBottomOf="@+id/cast_title"
         />
 
     <TextView
-        android:id="@+id/txt_sinopsys_title"
+        android:id="@+id/overview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/blue_title"
@@ -123,7 +123,7 @@
         android:fontFamily="@font/lato_regular"
         android:layout_marginTop="@dimen/large"
         android:text="@string/synopsis"
-        app:layout_constraintStart_toStartOf="@+id/txt_movie_year"
+        app:layout_constraintStart_toStartOf="@+id/release_year"
         app:layout_constraintTop_toBottomOf="@+id/genres_movie_details" />
 
     <ImageButton
@@ -150,7 +150,7 @@
         app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
-        android:id="@+id/txt_users_rating"
+        android:id="@+id/users_rating"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/xxsmall"
@@ -165,7 +165,7 @@
          />
 
    <TextView
-        android:id="@+id/txt_number_percent"
+        android:id="@+id/rating_percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/xsmall"
@@ -175,7 +175,7 @@
        android:textSize="@dimen/small"
         android:elevation="@dimen/large"
        android:text="87"
-        app:layout_constraintBottom_toTopOf="@id/txt_users_rating"
+        app:layout_constraintBottom_toTopOf="@id/users_rating"
         app:layout_constraintLeft_toRightOf="@id/img_label_star"
          />
 
@@ -200,20 +200,20 @@
         android:layout_marginTop="@dimen/small"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintLeft_toLeftOf="@id/txt_sinopsys"
-        app:layout_constraintStart_toStartOf="@+id/txt_movie_title"
-        app:layout_constraintTop_toBottomOf="@+id/txt_parental_Guidance" />
+        app:layout_constraintLeft_toLeftOf="@id/overview"
+        app:layout_constraintStart_toStartOf="@+id/movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/parental_guidance" />
 
     <TextView
-        android:id="@+id/txt_actor"
+        android:id="@+id/cast_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small"
         android:textColor="@color/blue_title"
         android:textSize="@dimen/medium"
         android:text="@string/cast"
-        app:layout_constraintStart_toStartOf="@+id/txt_sinopsys_title"
-        app:layout_constraintTop_toBottomOf="@+id/txt_sinopsys" />
+        app:layout_constraintStart_toStartOf="@+id/overview_title"
+        app:layout_constraintTop_toBottomOf="@+id/overview" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

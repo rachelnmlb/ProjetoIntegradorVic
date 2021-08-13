@@ -53,7 +53,6 @@ class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>): Recyc
             context.startActivity(intent)
         }
 
-        // TODO Ver uma solução melhor
         holder.favorite.setOnCheckedChangeListener(null)
 
         holder.favorite.isChecked = movie.isFavorite

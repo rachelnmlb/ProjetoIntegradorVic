@@ -16,20 +16,18 @@ data class MovieDetail(
     ) {
 
     fun releaseYear(): String {
-        var releaseYear =  releaseDate?.let {
+        val releaseYear =  releaseDate?.let {
             if (it.length < 4) ""
             else it.substring(0, 4)
         }?: ""
 
-        return releaseYear.toIntOrNull()?.let {
-            it.toString()
-        }?: ""
+        return releaseYear.toIntOrNull()?.toString() ?: ""
     }
 
     fun runtimeString(): String {
 
         val duration = runtime ?: 0
-        var hourPart = 0
+        val hourPart: Int
         var remainingTime = duration
         var durationText = ""
 
