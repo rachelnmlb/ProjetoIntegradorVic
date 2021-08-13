@@ -9,16 +9,42 @@ data class MovieDetail(
     @SerializedName("title") val title: String? = null,
     @SerializedName("vote_average") val rating: Float,
     @SerializedName("release_date") val releaseDate: String? = null,
-    @SerializedName("runtime") val duration: Int? = null,
+    @SerializedName("runtime") val runtime: Int? = null,
     @SerializedName("genres") val genres: List<Genre>,
     @SerializedName("overview") val overview: String? = null,
     var isFavorite: Boolean = false
     ) {
 
-    fun getReleaseYear(): String {
-        return releaseDate?.let {
+    fun releaseYear(): String {
+        var releaseYear =  releaseDate?.let {
             if (it.length < 4) ""
             else it.substring(0, 4)
         }?: ""
+
+        return releaseYear.toIntOrNull()?.let {
+            it.toString()
+        }?: ""
+    }
+
+    fun runtimeString(): String {
+
+        val duration = runtime ?: 0
+        var hourPart = 0
+        var remainingTime = duration
+        var durationText = ""
+
+        if (duration == 0) return "0h"
+
+        if (duration >= 60) {
+            hourPart = duration / 60
+            durationText = "${hourPart}h "
+            remainingTime -= hourPart * 60
+        }
+
+        if (remainingTime > 0) {
+            durationText += "${remainingTime.toString().padStart(2, '0')}min"
+        }
+
+        return durationText.trim()
     }
 }
