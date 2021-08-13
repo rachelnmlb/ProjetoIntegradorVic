@@ -1,6 +1,7 @@
 package com.rachel.projetointegrador
 
 import com.rachel.projetointegrador.data.model.MovieDetail
+import com.rachel.projetointegrador.data.model.ReleaseDateResultList
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -17,7 +18,8 @@ class MovieDetailTest {
         val runtime = MovieDetail(
             id = 0,
             rating = 100F,
-            genres = listOf()
+            genres = listOf(),
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).runtimeString()
 
         assertEquals("0h", runtime)
@@ -30,7 +32,8 @@ class MovieDetailTest {
             id = 0,
             rating = 100F,
             genres = listOf(),
-            runtime = 0
+            runtime = 0,
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).runtimeString()
 
         assertEquals("0h", runtime)
@@ -43,14 +46,16 @@ class MovieDetailTest {
             id = 0,
             rating = 100F,
             genres = listOf(),
-            runtime = 120
+            runtime = 120,
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).runtimeString()
 
         val runtime2 = MovieDetail(
             id = 0,
             rating = 100F,
             genres = listOf(),
-            runtime = 60
+            runtime = 60,
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).runtimeString()
 
         assertEquals("2h", runtime1)
@@ -64,7 +69,8 @@ class MovieDetailTest {
             id = 0,
             rating = 100F,
             genres = listOf(),
-            runtime = 30
+            runtime = 30,
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).runtimeString()
 
         assertEquals("30min", runtime)
@@ -77,14 +83,16 @@ class MovieDetailTest {
             id = 0,
             rating = 100F,
             genres = listOf(),
-            runtime = 125 // leading zero minutes
+            runtime = 125, // leading zero minutes
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).runtimeString()
 
         val runtime2 = MovieDetail(
             id = 0,
             rating = 100F,
             genres = listOf(),
-            runtime = 145
+            runtime = 145,
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).runtimeString()
 
         assertEquals("2h 05min", runtime1)
@@ -97,27 +105,31 @@ class MovieDetailTest {
             id = 0,
             rating = 100F,
             genres = listOf(),
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).releaseYear()
 
         val emptyDate = MovieDetail(
             id = 0,
             rating = 100F,
             genres = listOf(),
-            releaseDate = ""
+            releaseDate = "",
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).releaseYear()
 
         val shortDate = MovieDetail(
             id = 0,
             rating = 100F,
             genres = listOf(),
-            releaseDate = "199"
+            releaseDate = "199",
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).releaseYear()
 
         val nonDigitDate = MovieDetail(
             id = 0,
             rating = 100F,
             genres = listOf(),
-            releaseDate = "abcd-ef-gh"
+            releaseDate = "abcd-ef-gh",
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).releaseYear()
 
         assertEquals("", nullDate)
@@ -133,7 +145,8 @@ class MovieDetailTest {
             id = 0,
             rating = 100F,
             genres = listOf(),
-            releaseDate = "1999-09-09"
+            releaseDate = "1999-09-09",
+            releaseDates = ReleaseDateResultList(mutableListOf())
         ).releaseYear()
 
         assertEquals("1999", releaseYear)
