@@ -48,7 +48,11 @@ data class MovieDetail(
     }
 
     fun parentalGuidance(): String {
+
+        val regions = listOf("BR", "US")
+
         return releaseDates?.results
+            ?.filter { regions.contains(it.iso_3166_1) }
             ?.flatMap { it.releaseDates!! }
             ?.firstOrNull {  !it.certification.isNullOrBlank() }
             ?.certification ?: ""
