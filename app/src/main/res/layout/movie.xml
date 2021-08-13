@@ -68,7 +68,7 @@
             android:textOn=""
             android:visibility="visible"
             android:layout_marginTop="@dimen/xxsmall"
-            android:layout_marginLeft="@dimen/xxsmall"
+            android:layout_marginStart="@dimen/xxsmall"
             app:layout_constraintTop_toTopOf="@id/title_movie"
             app:layout_constraintLeft_toRightOf="@id/title_movie"/>
 
@@ -92,42 +92,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_movie" />
-  <!-- <ImageView
-       android:id="@+id/not_exist_image"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_movie_do_not_exist"
-       android:visibility="visible"
-    app:layout_constraintTop_toTopOf="@id/cvImage"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"/>
-
-    <TextView
-        android:id="@+id/txt_not_exist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/movie_do_not_exist"
-        android:textColor="@color/black"
-        android:textSize="@dimen/medium"
-        android:fontFamily="@font/lato_regular"
-        android:visibility="visible"
-        android:layout_marginTop="@dimen/medium"
-        app:layout_constraintTop_toBottomOf="@+id/not_exist_image"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/small"
-        android:text="@string/not_found"
-        android:textColor="@color/black_50_opacity"
-        android:textAlignment="center"
-        android:layout_marginTop="@dimen/small"
-        app:layout_constraintTop_toBottomOf="@+id/txt_not_exist"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/> -->
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

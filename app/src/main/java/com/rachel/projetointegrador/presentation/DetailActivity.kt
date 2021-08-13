@@ -69,6 +69,7 @@ class DetailActivity: AppCompatActivity() {
                 binding.txtMovieTitle.text = movieDetail.title
                 binding.txtSinopsys.text = movieDetail.overview
                 binding.favoriteDetail.isChecked = movieDetail.isFavorite
+                binding.txtMovieYear.text = movieDetail.getReleaseYear()
 
                 val rating = movieDetail.rating * 10.0
                 binding.txtNumberPercent.text = "${"%.0f".format(rating)}%"
