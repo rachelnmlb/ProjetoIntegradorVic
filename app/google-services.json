@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "318429202463",
+    "project_id": "projeto-integrador---vic",
+    "storage_bucket": "projeto-integrador---vic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318429202463:android:03e6bac0a9c89c73c86d2a",
+        "android_client_info": {
+          "package_name": "com.rachel.projetointegrador"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318429202463-hdkg9fipivu78ivfj7ii8ut21t6k1lk4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4McKr786X12OlrWjkYhw6kJEJGjqfIOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318429202463-hdkg9fipivu78ivfj7ii8ut21t6k1lk4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
