@@ -42,7 +42,7 @@ class MovieDetailViewModel: ViewModel() {
                 title = it.title,
                 posterPath = it.posterPath,
                 genreIds = it.genres.map { genre -> genre.id },
-                voteAverage = it.rating
+                voteAverage = it.voteAverage
             )
             FavoriteMovieRepository.addFavorite(movie)
         }

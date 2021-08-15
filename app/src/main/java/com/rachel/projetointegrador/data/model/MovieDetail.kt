@@ -7,14 +7,19 @@ data class MovieDetail(
     @SerializedName("backdrop_path") val backdropPath: String? = null,
     @SerializedName("poster_path") val posterPath: String? = null,
     @SerializedName("title") val title: String? = null,
-    @SerializedName("vote_average") val rating: Float,
+    @SerializedName("vote_average") val voteAverage: Float,
     @SerializedName("release_date") val releaseDate: String? = null,
     @SerializedName("runtime") val runtime: Int? = null,
     @SerializedName("genres") val genres: List<Genre>,
     @SerializedName("overview") val overview: String? = null,
-    @SerializedName("release_dates") val releaseDates: ReleaseDateResultList?,
+    @SerializedName("release_dates") val certifications: CertificationResultsList?,
     var isFavorite: Boolean = false
     ) {
+
+    fun voteAveragePercent(): String {
+        val rating = (voteAverage * 10.0)
+        return "${"%.0f".format(rating)}%"
+    }
 
     fun releaseYear(): String {
         val releaseYear =  releaseDate?.let {
@@ -51,9 +56,9 @@ data class MovieDetail(
 
         val regions = listOf("BR", "US")
 
-        return releaseDates?.results
+        return certifications?.results
             ?.filter { regions.contains(it.iso_3166_1) }
-            ?.flatMap { it.releaseDates!! }
+            ?.flatMap { it.certifications }
             ?.firstOrNull {  !it.certification.isNullOrBlank() }
             ?.certification ?: ""
     }

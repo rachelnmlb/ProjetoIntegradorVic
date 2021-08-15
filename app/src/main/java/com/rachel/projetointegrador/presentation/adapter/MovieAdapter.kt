@@ -36,9 +36,7 @@ class MovieAdapter(val context: Context, val dataSet: MutableList<Movie>): Recyc
 
         val movie = dataSet[position]
 
-        val rating = (movie.voteAverage * 10.0)
-
-        holder.voteAverage.text = "${"%.0f".format(rating)}%"
+        holder.voteAverage.text = movie.voteAveragePercent()
         holder.title.text = movie.title
 
         Glide.with(context)

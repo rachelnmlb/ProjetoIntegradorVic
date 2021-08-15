@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.data.Constants
 import com.rachel.projetointegrador.data.RequestStatus
-import com.rachel.projetointegrador.data.model.MovieDetail
 import com.rachel.projetointegrador.databinding.ActivityDetailBinding
 import com.rachel.projetointegrador.presentation.adapter.CastAdapter
 import com.rachel.projetointegrador.presentation.adapter.GenresDetailAdapter
@@ -70,8 +69,7 @@ class DetailActivity: AppCompatActivity() {
                 binding.movieRuntime.text = movieDetail.runtimeString()
                 binding.parentalGuidance.text = movieDetail.parentalGuidance()
 
-                val rating = movieDetail.rating * 10.0
-                binding.ratingPercent.text = "${"%.0f".format(rating)}%"
+                binding.ratingPercent.text = movieDetail.voteAveragePercent()
 
                 Glide.with(this)
                     .load("${Constants.IMAGE_BASE_URL.value}${movieDetail.backdropPath}")

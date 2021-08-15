@@ -10,4 +10,10 @@ data class Movie(
     @SerializedName("genre_ids") val genreIds: List<Int>,
     @SerializedName("vote_average") val voteAverage : Float,
     var isFavorite: Boolean = false
-    )
+    ) {
+
+    fun voteAveragePercent(): String {
+        val rating = (voteAverage * 10.0)
+        return "${"%.0f".format(rating)}%"
+    }
+}
