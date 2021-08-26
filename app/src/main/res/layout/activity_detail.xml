@@ -128,12 +128,14 @@
 
     <ImageButton
         android:id="@+id/btn_return"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="@dimen/large"
         android:layout_marginTop="@dimen/large"
-        android:backgroundTint="@android:color/transparent"
         android:contentDescription="@string/return_home"
+        android:background="@drawable/round_button"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
         android:src="@drawable/ic_return"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
