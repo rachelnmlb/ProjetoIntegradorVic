@@ -1,9 +1,10 @@
 package com.rachel.projetointegrador.presentation
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.rachel.projetointegrador.data.RequestStatus
 import com.rachel.projetointegrador.data.model.Movie
 import com.rachel.projetointegrador.data.model.MovieDetail
@@ -13,7 +14,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class MovieDetailViewModel: ViewModel() {
+class MovieDetailViewModel(application: Application): AndroidViewModel(application) {
+
+    private val favoriteMovieRepository = FavoriteMovieRepository(application.applicationContext)
 
     private val _movieDetail = MutableLiveData<MovieDetail>()
     private val _requestStatus = MutableLiveData<RequestStatus>()
@@ -27,7 +30,7 @@ class MovieDetailViewModel: ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                it.isFavorite = FavoriteMovieRepository.isFavorite(it.id)
+                it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
                 _movieDetail.value = it
             }, {
                 _requestStatus.value = RequestStatus.ERROR
@@ -44,13 +47,13 @@ class MovieDetailViewModel: ViewModel() {
                 genreIds = it.genres.map { genre -> genre.id },
                 voteAverage = it.voteAverage
             )
-            FavoriteMovieRepository.addFavorite(movie)
+            favoriteMovieRepository.addFavorite(movie)
         }
     }
 
     fun removeFavorite() {
         _movieDetail.value?.let {
-            FavoriteMovieRepository.removeFavorite(it.id)
+            favoriteMovieRepository.removeFavorite(it.id)
         }
     }
 }

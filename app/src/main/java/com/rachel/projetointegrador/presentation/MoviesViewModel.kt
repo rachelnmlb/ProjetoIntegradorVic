@@ -1,9 +1,10 @@
 package com.rachel.projetointegrador.presentation
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.rachel.projetointegrador.data.RequestStatus
 import com.rachel.projetointegrador.data.model.Genre
 import com.rachel.projetointegrador.data.model.Movie
@@ -14,9 +15,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel(application: Application) : AndroidViewModel(application) {
 
-
+    private val favoriteMovieRepository = FavoriteMovieRepository(application.applicationContext)
 
     private val _popularMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
     private val _favoriteMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
@@ -55,12 +56,12 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun loadFavoriteMovies() {
-        val favorites = FavoriteMovieRepository.listFavorites()
+        val favorites = favoriteMovieRepository.listFavorites()
         _favoriteMovies.value = favorites
     }
 
     fun loadFavoritesByGenre(genreIds: List<Int>) {
-        val favorites = FavoriteMovieRepository.listFavorites()
+        val favorites = favoriteMovieRepository.listFavorites()
             .filter { movie -> movie.genreIds.containsAll(genreIds) }
             .toMutableList()
 
@@ -103,19 +104,19 @@ class MoviesViewModel : ViewModel() {
     }
 
     fun addFavorite(movie: Movie) {
-        FavoriteMovieRepository.addFavorite(movie)
+        favoriteMovieRepository.addFavorite(movie)
         notifyChanges()
     }
 
     fun removeFavorite(movie: Movie) {
-        FavoriteMovieRepository.removeFavorite(movie.id)
+        favoriteMovieRepository.removeFavorite(movie.id)
         notifyChanges()
     }
 
     fun notifyChanges() {
         _popularMovies.value = _popularMovies.value?.let { checkFavorites(it) }
         _searchResults.value = _searchResults.value?.let { checkFavorites(it) }
-        _favoriteMovies.value = FavoriteMovieRepository.listFavorites()
+        _favoriteMovies.value = favoriteMovieRepository.listFavorites()
     }
 
     private fun handleError(tag: String, error: Throwable) {
@@ -125,7 +126,7 @@ class MoviesViewModel : ViewModel() {
 
     private fun checkFavorites(movies: MutableList<Movie>): MutableList<Movie> {
         return movies.map {
-            it.isFavorite = FavoriteMovieRepository.isFavorite(it.id)
+            it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
             it
         }.toMutableList()
     }

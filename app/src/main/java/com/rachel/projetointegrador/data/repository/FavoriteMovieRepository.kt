@@ -1,26 +1,39 @@
 package com.rachel.projetointegrador.data.repository
 
+import android.content.Context
+import com.rachel.projetointegrador.data.database.FavoriteMovieDatabase
+import com.rachel.projetointegrador.data.model.FavoriteMovie
 import com.rachel.projetointegrador.data.model.Movie
 
-object FavoriteMovieRepository {
+class FavoriteMovieRepository(context: Context) {
+
+    private val favoriteMovieDAO = FavoriteMovieDatabase.getDatabase(context).favoriteMovieDao()
 
     fun addFavorite(movie: Movie) {
         movie.isFavorite = true
-        favorites.putIfAbsent(movie.id, movie)
+        val favorite = FavoriteMovie(
+            movie.id,
+            movie.title,
+            movie.posterPath,
+            movie.genreIds.joinToString(","),
+            movie.voteAverage)
+
+        favoriteMovieDAO.addFavoriteMovie(favorite)
     }
 
     fun removeFavorite(movieId : Int) {
-        favorites[movieId]?.isFavorite = false
-        favorites.remove(movieId)
+        val favorite = favoriteMovieDAO.loadById(movieId)
+        favoriteMovieDAO.removeFavorite(favorite[0])
     }
 
     fun isFavorite(movieId: Int): Boolean {
-        return favorites.contains(movieId)
+        return favoriteMovieDAO.loadById(movieId).isNotEmpty()
     }
 
     fun listFavorites(): MutableList<Movie> {
-        return ArrayList(favorites.values)
+        return favoriteMovieDAO.listFavoriteMovies()
+            .map { f ->
+                Movie(f.id, f.title, f.posterPath, f.genreIds.split(",").map {it.toInt()}, f.voteAverage, true)
+            }.toMutableList()
     }
-
-    val favorites : MutableMap<Int, Movie> = mutableMapOf()
 }
