@@ -9,6 +9,7 @@ import com.rachel.projetointegrador.data.model.FavoriteMovie
 
 @Database(entities = [FavoriteMovie::class], version = 1)
 abstract class FavoriteMovieDatabase : RoomDatabase() {
+
     abstract fun favoriteMovieDao() : FavoriteMovieDao
 
     companion object {
@@ -18,13 +19,14 @@ abstract class FavoriteMovieDatabase : RoomDatabase() {
         fun getDatabase(context: Context): FavoriteMovieDatabase {
 
             synchronized(FavoriteMovieDatabase::class) {
+
                 if (!::INSTANCE.isInitialized) {
+
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         FavoriteMovieDatabase::class.java,
                         "favorite-movie-database"
                     )
-                        .fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build()
                 }

@@ -2,6 +2,7 @@ package com.rachel.projetointegrador.data.dao
 
 import androidx.room.*
 import com.rachel.projetointegrador.data.model.FavoriteMovie
+import java.util.*
 
 @Dao
 interface FavoriteMovieDao {
@@ -16,5 +17,5 @@ interface FavoriteMovieDao {
     fun listFavoriteMovies(): List<FavoriteMovie>
 
     @Query("SELECT * FROM FavoritesMovies WHERE id = :id")
-    fun loadById(id: Int): List<FavoriteMovie>
+    fun loadById(id: Int): Optional<FavoriteMovie>
 }
