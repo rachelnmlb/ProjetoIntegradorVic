@@ -2,8 +2,10 @@ package com.rachel.projetointegrador.data.repository
 
 import android.content.Context
 import com.rachel.projetointegrador.data.database.FavoriteMovieDatabase
-import com.rachel.projetointegrador.data.model.FavoriteMovie
+import com.rachel.projetointegrador.data.model.entity.FavoriteMovie
 import com.rachel.projetointegrador.data.model.Movie
+import com.rachel.projetointegrador.data.model.entity.FavoriteMovieWithGenre
+import com.rachel.projetointegrador.data.model.entity.Genre
 
 class FavoriteMovieRepository(context: Context) {
 
@@ -17,16 +19,23 @@ class FavoriteMovieRepository(context: Context) {
             movie.id,
             movie.title,
             movie.posterPath,
-            movie.genreIds.joinToString(","),
             movie.voteAverage)
 
+        val genres = movie.genreIds.map {
+            Genre(
+                it,
+                movie.id
+            )
+        }
         favoriteMovieDAO.addFavoriteMovie(favorite)
+        favoriteMovieDAO.addGenre(genres)
     }
 
     fun removeFavorite(movieId : Int) {
         val favorite = favoriteMovieDAO.loadById(movieId)
         if (favorite.isPresent) {
-            favoriteMovieDAO.removeFavorite(favorite.get())
+            favoriteMovieDAO.removeGenre(favorite.get().genres)
+            favoriteMovieDAO.removeFavorite(favorite.get().favoriteMovie)
         }
     }
 
@@ -38,11 +47,11 @@ class FavoriteMovieRepository(context: Context) {
         return favoriteMovieDAO.listFavoriteMovies()
             .map { f ->
                 Movie(
-                    f.id,
-                    f.title,
-                    f.posterPath,
-                    f.genreIds.split(",").map{it.toInt()},
-                    f.voteAverage,
+                    f.favoriteMovie.id,
+                    f.favoriteMovie.title,
+                    f.favoriteMovie.posterPath,
+                    f.genres.map { g -> g.id },
+                    f.favoriteMovie.voteAverage,
                     true)
             }.toMutableList()
     }

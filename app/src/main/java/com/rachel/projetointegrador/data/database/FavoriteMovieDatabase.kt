@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.rachel.projetointegrador.data.dao.FavoriteMovieDao
-import com.rachel.projetointegrador.data.model.FavoriteMovie
+import com.rachel.projetointegrador.data.model.entity.FavoriteMovie
+import com.rachel.projetointegrador.data.model.entity.Genre
 
-@Database(entities = [FavoriteMovie::class], version = 1)
+@Database(entities = [FavoriteMovie::class, Genre::class], version = 2)
 abstract class FavoriteMovieDatabase : RoomDatabase() {
 
     abstract fun favoriteMovieDao() : FavoriteMovieDao
@@ -27,6 +28,7 @@ abstract class FavoriteMovieDatabase : RoomDatabase() {
                         FavoriteMovieDatabase::class.java,
                         "favorite-movie-database"
                     )
+                        .fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build()
                 }
