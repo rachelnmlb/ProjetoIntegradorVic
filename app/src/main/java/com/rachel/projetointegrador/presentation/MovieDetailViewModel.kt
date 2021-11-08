@@ -30,8 +30,8 @@ class MovieDetailViewModel(application: Application): AndroidViewModel(applicati
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
                 _movieDetail.value = it
+                checkFavorites(_movieDetail)
             }, {
                 _requestStatus.value = RequestStatus.ERROR
                 it.message?.let { message -> Log.e("Error loading movie", message) }
@@ -53,7 +53,28 @@ class MovieDetailViewModel(application: Application): AndroidViewModel(applicati
 
     fun removeFavorite() {
         _movieDetail.value?.let {
-            favoriteMovieRepository.removeFavorite(it.id)
+            val movie = Movie(
+                id = it.id,
+                title = it.title,
+                posterPath = it.posterPath,
+                genreIds = it.genres.map { genre -> genre.id },
+                voteAverage = it.voteAverage
+            )
+            favoriteMovieRepository.removeFavorite(movie)
         }
+    }
+
+    private fun checkFavorites(movieData: MutableLiveData<MovieDetail>): Disposable {
+
+        return favoriteMovieRepository.listFavorites()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    val detail = movieData.value
+                    detail?.isFavorite = it.map{ d -> d.id }.contains(detail?.id)
+                    movieData.value = detail
+                },
+                {it.message?.let { message -> Log.e("Error loading movie", message) }})
     }
 }

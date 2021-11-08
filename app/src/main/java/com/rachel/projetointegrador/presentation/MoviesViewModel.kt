@@ -38,7 +38,8 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                _popularMovies.value = checkFavorites(it.results)
+                _popularMovies.value = it.results
+                checkFavorites(_popularMovies)
             }, {
                 handleError("Error loading movies", it)
             })
@@ -49,23 +50,35 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                _popularMovies.value = checkFavorites(it.results)
+                _popularMovies.value = it.results
+                checkFavorites(_popularMovies)
             }, {
                 handleError("Error loading movies", it)
             })
     }
 
-    fun loadFavoriteMovies() {
-        val favorites = favoriteMovieRepository.listFavorites()
-        _favoriteMovies.value = favorites
+    fun loadFavoriteMovies(): Disposable {
+        return favoriteMovieRepository.listFavorites()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _favoriteMovies.value = it
+            }, {
+                handleError("Error loading movies", it)
+            })
     }
 
-    fun loadFavoritesByGenre(genreIds: List<Int>) {
-        val favorites = favoriteMovieRepository.listFavorites()
-            .filter { movie -> movie.genreIds.containsAll(genreIds) }
-            .toMutableList()
-
-        _favoriteMovies.value = favorites
+    fun loadFavoritesByGenre(genreIds: List<Int>): Disposable {
+        return favoriteMovieRepository.listFavorites()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _favoriteMovies.value = it.filter {
+                        movie -> movie.genreIds.containsAll(genreIds)
+                }.toMutableList()
+            }, {
+                handleError("Error loading movies", it)
+            })
     }
 
     fun repeatLastSearch(): Disposable {
@@ -78,7 +91,8 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                _searchResults.value = checkFavorites(it.results)
+                _searchResults.value = it.results
+                checkFavorites(_searchResults)
             }, {
                 handleError("Error loading movies", it)
             })
@@ -109,14 +123,15 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun removeFavorite(movie: Movie) {
-        favoriteMovieRepository.removeFavorite(movie.id)
+        favoriteMovieRepository.removeFavorite(movie)
         notifyChanges()
     }
 
     fun notifyChanges() {
-        _popularMovies.value = _popularMovies.value?.let { checkFavorites(it) }
-        _searchResults.value = _searchResults.value?.let { checkFavorites(it) }
-        _favoriteMovies.value = favoriteMovieRepository.listFavorites()
+        //TODO: otimizar a checagem de favoritos. Muitas pesquisas no banco de dados
+        checkFavorites(_popularMovies)
+        checkFavorites(_searchResults)
+        loadFavoriteMovies()
     }
 
     private fun handleError(tag: String, error: Throwable) {
@@ -124,10 +139,17 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
         error.message?.let { message -> Log.e(tag, message) }
     }
 
-    private fun checkFavorites(movies: MutableList<Movie>): MutableList<Movie> {
-        return movies.map {
-            it.isFavorite = favoriteMovieRepository.isFavorite(it.id)
-            it
-        }.toMutableList()
+    private fun checkFavorites(movieData: MutableLiveData<MutableList<Movie>>): Disposable {
+        return favoriteMovieRepository.listFavorites()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { favorites ->
+                    movieData.value = movieData.value?.map {
+                        it.isFavorite = favorites.map { f -> f.id }.contains(it.id)
+                        it
+                    }?.toMutableList()
+                },
+                {handleError("Error loading favorites", it)})
     }
 }
