@@ -4,6 +4,7 @@ import androidx.room.*
 import com.rachel.projetointegrador.data.model.entity.FavoriteMovie
 import com.rachel.projetointegrador.data.model.entity.FavoriteMovieWithGenre
 import com.rachel.projetointegrador.data.model.entity.Genre
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import java.util.*
@@ -11,17 +12,13 @@ import java.util.*
 @Dao
 interface FavoriteMovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addFavoriteMovie(movie: FavoriteMovie)
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addFavoriteMovie(movie: FavoriteMovie, genres: List<Genre>): Single<List<Long>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addGenre(genres: List<Genre>)
-
+    @Transaction
     @Delete
-    fun removeFavorite(favoriteMovie: FavoriteMovie)
-
-    @Delete
-    fun removeGenre(genres: List<Genre>)
+    fun removeFavorite(favoriteMovie: FavoriteMovie, genres: List<Genre>): Single<List<Long>>
 
     @Query("SELECT * FROM FavoritesMovies")
     fun listFavoriteMovies():Single<List<FavoriteMovieWithGenre>>

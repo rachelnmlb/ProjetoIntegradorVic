@@ -6,13 +6,14 @@ import com.rachel.projetointegrador.data.model.entity.FavoriteMovie
 import com.rachel.projetointegrador.data.model.Movie
 import com.rachel.projetointegrador.data.model.entity.FavoriteMovieWithGenre
 import com.rachel.projetointegrador.data.model.entity.Genre
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class FavoriteMovieRepository(context: Context) {
 
     private val favoriteMovieDAO = FavoriteMovieDatabase.getDatabase(context).favoriteMovieDao()
 
-    fun addFavorite(movie: Movie) {
+    fun addFavorite(movie: Movie): Single<List<Long>> {
 
         movie.isFavorite = true
 
@@ -28,11 +29,10 @@ class FavoriteMovieRepository(context: Context) {
                 movie.id
             )
         }
-        favoriteMovieDAO.addFavoriteMovie(favorite)
-        favoriteMovieDAO.addGenre(genres)
+        return favoriteMovieDAO.addFavoriteMovie(favorite, genres)
     }
 
-    fun removeFavorite(movie: Movie) {
+    fun removeFavorite(movie: Movie): Single<List<Long>> {
         val favorite = FavoriteMovie(
             movie.id,
             movie.title,
@@ -45,8 +45,7 @@ class FavoriteMovieRepository(context: Context) {
                 movie.id
             )
         }
-        favoriteMovieDAO.removeGenre(genres)
-        favoriteMovieDAO.removeFavorite(favorite)
+        return favoriteMovieDAO.removeFavorite(favorite, genres)
     }
 
     fun listFavorites(): Single<MutableList<Movie>> {

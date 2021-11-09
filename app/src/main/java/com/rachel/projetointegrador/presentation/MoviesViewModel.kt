@@ -117,14 +117,26 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
             })
     }
 
-    fun addFavorite(movie: Movie) {
-        favoriteMovieRepository.addFavorite(movie)
-        notifyChanges()
+    fun addFavorite(movie: Movie): Disposable {
+        return favoriteMovieRepository.addFavorite(movie)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                notifyChanges()
+            },{
+                handleError("Error loading genres", it)
+            })
     }
 
-    fun removeFavorite(movie: Movie) {
-        favoriteMovieRepository.removeFavorite(movie)
-        notifyChanges()
+    fun removeFavorite(movie: Movie): Disposable {
+        return favoriteMovieRepository.removeFavorite(movie)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                notifyChanges()
+            },{
+                handleError("Error loading genres", it)
+            })
     }
 
     fun notifyChanges() {
