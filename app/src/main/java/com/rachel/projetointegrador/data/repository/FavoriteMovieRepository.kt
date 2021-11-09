@@ -13,7 +13,7 @@ class FavoriteMovieRepository(context: Context) {
 
     private val favoriteMovieDAO = FavoriteMovieDatabase.getDatabase(context).favoriteMovieDao()
 
-    fun addFavorite(movie: Movie): Single<List<Long>> {
+    fun addFavorite(movie: Movie): Completable {
 
         movie.isFavorite = true
 
@@ -29,10 +29,10 @@ class FavoriteMovieRepository(context: Context) {
                 movie.id
             )
         }
-        return favoriteMovieDAO.addFavoriteMovie(favorite, genres)
+        return favoriteMovieDAO.add(favorite, genres)
     }
 
-    fun removeFavorite(movie: Movie): Single<List<Long>> {
+    fun removeFavorite(movie: Movie): Completable {
         val favorite = FavoriteMovie(
             movie.id,
             movie.title,
@@ -45,7 +45,7 @@ class FavoriteMovieRepository(context: Context) {
                 movie.id
             )
         }
-        return favoriteMovieDAO.removeFavorite(favorite, genres)
+        return favoriteMovieDAO.remove(favorite, genres)
     }
 
     fun listFavorites(): Single<MutableList<Movie>> {

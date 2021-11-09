@@ -29,7 +29,6 @@ abstract class FavoriteMovieDatabase : RoomDatabase() {
                         "favorite-movie-database"
                     )
                         .fallbackToDestructiveMigration()
-                        .allowMainThreadQueries()
                         .build()
                 }
             }

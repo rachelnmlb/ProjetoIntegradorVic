@@ -48,6 +48,9 @@ class MovieDetailViewModel(application: Application): AndroidViewModel(applicati
                 voteAverage = it.voteAverage
             )
             favoriteMovieRepository.addFavorite(movie)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
         }
     }
 
@@ -61,6 +64,9 @@ class MovieDetailViewModel(application: Application): AndroidViewModel(applicati
                 voteAverage = it.voteAverage
             )
             favoriteMovieRepository.removeFavorite(movie)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
         }
     }
 

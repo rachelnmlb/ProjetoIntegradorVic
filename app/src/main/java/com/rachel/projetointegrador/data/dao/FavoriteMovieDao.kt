@@ -12,13 +12,21 @@ import java.util.*
 @Dao
 interface FavoriteMovieDao {
 
+    fun add(movie: FavoriteMovie, genres: List<Genre>): Completable {
+        return Completable.fromAction { addFavoriteMovie(movie, genres) }
+    }
+
+    fun remove(movie: FavoriteMovie, genres: List<Genre>): Completable {
+        return Completable.fromAction { removeFavorite(movie, genres) }
+    }
+
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addFavoriteMovie(movie: FavoriteMovie, genres: List<Genre>): Single<List<Long>>
+    fun addFavoriteMovie(movie: FavoriteMovie, genres: List<Genre>)
 
     @Transaction
     @Delete
-    fun removeFavorite(favoriteMovie: FavoriteMovie, genres: List<Genre>): Single<List<Long>>
+    fun removeFavorite(favoriteMovie: FavoriteMovie, genres: List<Genre>)
 
     @Query("SELECT * FROM FavoritesMovies")
     fun listFavoriteMovies():Single<List<FavoriteMovieWithGenre>>
