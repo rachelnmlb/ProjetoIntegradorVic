@@ -12,6 +12,7 @@ import com.rachel.projetointegrador.databinding.ActivityDetailBinding
 import com.rachel.projetointegrador.presentation.adapter.CastAdapter
 import com.rachel.projetointegrador.presentation.adapter.GenresDetailAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity: AppCompatActivity() {
     private lateinit var castAdapter: CastAdapter
@@ -19,7 +20,7 @@ class DetailActivity: AppCompatActivity() {
     private var movieId: Int = 0
 
     private lateinit var detailViewModel: MovieDetailViewModel
-    private lateinit var castViewModel: CastViewModel
+    private val castViewModel: CastViewModel by viewModel()
 
     private val binding by lazy {
         ActivityDetailBinding.inflate(layoutInflater)
@@ -38,7 +39,6 @@ class DetailActivity: AppCompatActivity() {
         binding.actorList.adapter = castAdapter
 
         detailViewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
-        castViewModel = ViewModelProvider(this).get(CastViewModel::class.java)
 
         observeMovieDetails()
         observeCastList()

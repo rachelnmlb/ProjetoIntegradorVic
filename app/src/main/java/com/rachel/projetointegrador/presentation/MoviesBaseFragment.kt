@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.rachel.projetointegrador.data.RequestStatus
 import com.rachel.projetointegrador.databinding.FragmentMoviesBinding
 import com.rachel.projetointegrador.presentation.adapter.GenresAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class MoviesBaseFragment : Fragment() {
 
     protected lateinit var genresAdapter : GenresAdapter
     protected lateinit var movieAdapter : MovieAdapter
-    protected lateinit var moviesViewModel : MoviesViewModel
+    protected val moviesViewModel : MoviesViewModel by viewModel()
 
     private var _binding: FragmentMoviesBinding? = null
     protected val binding get() = _binding!!
@@ -32,8 +31,6 @@ abstract class MoviesBaseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        moviesViewModel = ViewModelProvider(requireActivity()).get(MoviesViewModel::class.java)
 
         movieAdapter = MovieAdapter(view.context, mutableListOf())
         binding.movieList.adapter = movieAdapter

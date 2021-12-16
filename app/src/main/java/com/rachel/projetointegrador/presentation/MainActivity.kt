@@ -8,10 +8,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.rachel.projetointegrador.R
 import com.rachel.projetointegrador.databinding.ActivityHomeBinding
 import com.rachel.projetointegrador.presentation.adapter.FragmentAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var moviesViewModel: MoviesViewModel
+    private val moviesViewModel: MoviesViewModel by viewModel()
 
     private val binding by lazy {
         ActivityHomeBinding.inflate(layoutInflater)
@@ -24,8 +25,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        moviesViewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
 
         configViewPager()
         addSearchFragment()

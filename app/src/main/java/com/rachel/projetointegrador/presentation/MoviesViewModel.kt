@@ -15,7 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class MoviesViewModel(application: Application) : AndroidViewModel(application) {
+class MoviesViewModel(application: Application, private val genreRepository: GenreRepository) : AndroidViewModel(application) {
 
     private val favoriteMovieRepository = FavoriteMovieRepository(application.applicationContext)
 
@@ -107,7 +107,7 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun loadGenres(): Disposable {
-        return GenreRepository.fetchGenresList()
+        return genreRepository.fetchGenresList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({

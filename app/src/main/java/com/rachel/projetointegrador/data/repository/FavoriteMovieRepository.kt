@@ -4,7 +4,6 @@ import android.content.Context
 import com.rachel.projetointegrador.data.database.FavoriteMovieDatabase
 import com.rachel.projetointegrador.data.model.entity.FavoriteMovie
 import com.rachel.projetointegrador.data.model.Movie
-import com.rachel.projetointegrador.data.model.entity.FavoriteMovieWithGenre
 import com.rachel.projetointegrador.data.model.entity.Genre
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -8,7 +8,7 @@ import com.rachel.projetointegrador.data.dao.FavoriteMovieDao
 import com.rachel.projetointegrador.data.model.entity.FavoriteMovie
 import com.rachel.projetointegrador.data.model.entity.Genre
 
-@Database(entities = [FavoriteMovie::class, Genre::class], version = 2)
+@Database(entities = [FavoriteMovie::class, Genre::class], version = 3)
 abstract class FavoriteMovieDatabase : RoomDatabase() {
 
     abstract fun favoriteMovieDao() : FavoriteMovieDao
