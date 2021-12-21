@@ -10,13 +10,14 @@ import com.rachel.projetointegrador.data.RequestStatus
 import com.rachel.projetointegrador.databinding.FragmentMoviesBinding
 import com.rachel.projetointegrador.presentation.adapter.GenresAdapter
 import com.rachel.projetointegrador.presentation.adapter.MovieAdapter
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class MoviesBaseFragment : Fragment() {
 
     protected lateinit var genresAdapter : GenresAdapter
     protected lateinit var movieAdapter : MovieAdapter
-    protected val moviesViewModel : MoviesViewModel by viewModel()
+    protected val moviesViewModel : MoviesViewModel by sharedViewModel()
 
     private var _binding: FragmentMoviesBinding? = null
     protected val binding get() = _binding!!

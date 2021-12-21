@@ -19,7 +19,7 @@ class DetailActivity: AppCompatActivity() {
     private lateinit var genresDetailAdapter: GenresDetailAdapter
     private var movieId: Int = 0
 
-    private lateinit var detailViewModel: MovieDetailViewModel
+    private val detailViewModel: MovieDetailViewModel by viewModel()
     private val castViewModel: CastViewModel by viewModel()
 
     private val binding by lazy {
@@ -37,8 +37,6 @@ class DetailActivity: AppCompatActivity() {
 
         castAdapter = CastAdapter(this)
         binding.actorList.adapter = castAdapter
-
-        detailViewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
 
         observeMovieDetails()
         observeCastList()

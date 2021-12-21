@@ -5,18 +5,19 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.rachel.projetointegrador.data.RequestStatus
+import com.rachel.projetointegrador.data.dao.FavoriteMovieDao
 import com.rachel.projetointegrador.data.model.Movie
 import com.rachel.projetointegrador.data.model.MovieDetail
+import com.rachel.projetointegrador.data.repository.FavoriteMovieLocalRepository
 import com.rachel.projetointegrador.data.repository.FavoriteMovieRepository
 import com.rachel.projetointegrador.data.repository.MovieRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class MovieDetailViewModel(application: Application): AndroidViewModel(application) {
-
-    private val favoriteMovieRepository = FavoriteMovieRepository(application.applicationContext)
+class MovieDetailViewModel(private val favoriteMovieRepository: FavoriteMovieRepository): ViewModel() {
 
     private val _movieDetail = MutableLiveData<MovieDetail>()
     private val _requestStatus = MutableLiveData<RequestStatus>()

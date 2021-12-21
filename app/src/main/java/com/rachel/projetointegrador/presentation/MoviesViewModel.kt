@@ -5,9 +5,11 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.rachel.projetointegrador.data.RequestStatus
 import com.rachel.projetointegrador.data.model.Genre
 import com.rachel.projetointegrador.data.model.Movie
+import com.rachel.projetointegrador.data.repository.FavoriteMovieLocalRepository
 import com.rachel.projetointegrador.data.repository.FavoriteMovieRepository
 import com.rachel.projetointegrador.data.repository.GenreRepository
 import com.rachel.projetointegrador.data.repository.MovieRepository
@@ -15,9 +17,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class MoviesViewModel(application: Application, private val genreRepository: GenreRepository) : AndroidViewModel(application) {
-
-    private val favoriteMovieRepository = FavoriteMovieRepository(application.applicationContext)
+class MoviesViewModel(private val genreRepository: GenreRepository,
+                      private val favoriteMovieLocalRepository: FavoriteMovieRepository): ViewModel() {
 
     private val _popularMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
     private val _favoriteMovies = MutableLiveData<MutableList<Movie>>(mutableListOf())
@@ -58,7 +59,7 @@ class MoviesViewModel(application: Application, private val genreRepository: Gen
     }
 
     fun loadFavoriteMovies(): Disposable {
-        return favoriteMovieRepository.listFavorites()
+        return favoriteMovieLocalRepository.listFavorites()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -69,7 +70,7 @@ class MoviesViewModel(application: Application, private val genreRepository: Gen
     }
 
     fun loadFavoritesByGenre(genreIds: List<Int>): Disposable {
-        return favoriteMovieRepository.listFavorites()
+        return favoriteMovieLocalRepository.listFavorites()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -118,7 +119,7 @@ class MoviesViewModel(application: Application, private val genreRepository: Gen
     }
 
     fun addFavorite(movie: Movie): Disposable {
-        return favoriteMovieRepository.addFavorite(movie)
+        return favoriteMovieLocalRepository.addFavorite(movie)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -129,7 +130,7 @@ class MoviesViewModel(application: Application, private val genreRepository: Gen
     }
 
     fun removeFavorite(movie: Movie): Disposable {
-        return favoriteMovieRepository.removeFavorite(movie)
+        return favoriteMovieLocalRepository.removeFavorite(movie)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -152,7 +153,7 @@ class MoviesViewModel(application: Application, private val genreRepository: Gen
     }
 
     private fun checkFavorites(movieData: MutableLiveData<MutableList<Movie>>): Disposable {
-        return favoriteMovieRepository.listFavorites()
+        return favoriteMovieLocalRepository.listFavorites()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

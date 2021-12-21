@@ -28,6 +28,7 @@ interface FavoriteMovieDao {
     @Delete
     fun removeFavorite(favoriteMovie: FavoriteMovie, genres: List<Genre>)
 
+    @Transaction
     @Query("SELECT * FROM FavoritesMovies")
     fun listFavoriteMovies():Single<List<FavoriteMovieWithGenre>>
 
